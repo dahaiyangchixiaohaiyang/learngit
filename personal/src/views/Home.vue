@@ -6,7 +6,7 @@
       <i class="jinsom-icon jinsom-qiandao2"></i>
     </div>
     <van-tabs>
-  <van-tab v-for="(index,i) in title"  type="card" :title="index" :key="i" title-style="color:green">
+  <van-tab v-for="(index,i) in title"  type="card" :title="index" :key="i">
     <i class="jinsom-icon jinsom-paixu2"></i>
   </van-tab>
 </van-tabs>
