@@ -1,0 +1,84 @@
+.flex-column {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: column;
+  -ms-flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: row;
+  -ms-flex-direction: row;
+}
+
+.flex-column-center {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  align-items: center;
+  -ms-flex-align: center;
+}
+
+.flex-row-center {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  align-items: center;
+  -ms-flex-align: center;
+}
+
+.flex-one {
+  flex: 1 !important;
+}
+
+.flex-row-space-between {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  justify-content: space-between;
+}
+
+.flex-row-space-around {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  justify-content: space-around;
+}
+
+.flex-row-justify-start {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  justify-content: flex-start;
+}
+
+.flex-row-justify-center {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  justify-content: center;
+}
+
+.flex-row-justify-end {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-direction: row;
+  -ms-flex-direction: row;
+  justify-content: flex-end;
+}

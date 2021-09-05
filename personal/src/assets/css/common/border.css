@@ -1,0 +1,139 @@
+.no-border {
+  border: none !important;
+}
+
+.no-border-top {
+  border-top: none !important;
+}
+
+.no-border-right {
+  border-right: none !important;
+}
+
+.no-border-bottom {
+  border-bottom: none !important;
+}
+
+.no-border-left {
+  border-left: none !important;
+}
+
+.bordered-1 {
+  border: 1px solid #fff !important;
+}
+
+.bordered-2 {
+  border: 2px solid #fff !important;
+}
+
+.bordered-3 {
+  border: 3px solid #fff !important;
+}
+
+.bordered-4 {
+  border: 4px solid #fff !important;
+}
+
+.bordered-5 {
+  border: 5px solid #fff !important;
+}
+
+.bordered-bottom-1 {
+  border-bottom: 1px solid #fff !important;
+}
+
+.bordered-bottom-2 {
+  border-bottom: 2px solid #fff !important;
+}
+
+.bordered-bottom-3 {
+  border-bottom: 3px solid #fff !important;
+}
+
+.bordered-bottom-4 {
+  border-bottom: 4px solid #fff !important;
+}
+
+.bordered-bottom-5 {
+  border-bottom: 5px solid #fff !important;
+}
+
+.bordered-top-1 {
+  border-top: 1px solid #fff !important;
+}
+
+.bordered-top-2 {
+  border-top: 2px solid #fff !important;
+}
+
+.bordered-top-3 {
+  border-top: 3px solid #fff !important;
+}
+
+.bordered-top-4 {
+  border-top: 4px solid #fff !important;
+}
+
+.bordered-top-5 {
+  border-top: 5px solid #fff !important;
+}
+
+.bordered-left-1 {
+  border-left: 1px solid #fff !important;
+}
+
+.bordered-left-2 {
+  border-left: 2px solid #fff !important;
+}
+
+.bordered-left-3 {
+  border-left: 3px solid #fff !important;
+}
+
+.bordered-left-4 {
+  border-left: 4px solid #fff !important;
+}
+
+.bordered-left-5 {
+  border-left: 5px solid #fff !important;
+}
+
+.bordered-right-1 {
+  border-right: 1px solid #fff !important;
+}
+
+.bordered-right-2 {
+  border-right: 2px solid #fff !important;
+}
+
+.bordered-right-3 {
+  border-right: 3px solid #fff !important;
+}
+
+.bordered-right-4 {
+  border-right: 4px solid #fff !important;
+}
+
+.bordered-right-5 {
+  border-right: 5px solid #fff !important;
+}
+
+.bordered-solid {
+  border-style: solid !important;
+}
+
+.bordered-dashed {
+  border-style: dashed !important;
+}
+
+.bordered-dotted {
+  border-style: dotted !important;
+}
+
+.bordered-double {
+  border-style: double !important;
+}
+
+.bordered-divider {
+  border-color: #f2f2f2 !important;
+}
