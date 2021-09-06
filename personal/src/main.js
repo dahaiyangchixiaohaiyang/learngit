@@ -7,6 +7,7 @@ import 'vant/lib/index.css';
 import './assets/font/iconfont2.css'
 import './assets/font/iconfont.css'
 import './assets/css/iphon.css'
+import { ImagePreview } from 'vant';
 
 //引入全局通用样式
 import './assets/css/index.css'
@@ -19,6 +20,8 @@ import './utils/lib-flexible'
 // import { Icon } from 'vant';
 // Vue.use(Icon);
 Vue.use(Vant);
+Vue.use(ImagePreview);
+
 
 Vue.config.productionTip = false
 

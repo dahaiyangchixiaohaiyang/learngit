@@ -1,29 +1,36 @@
 <template>
 <div>
-    <van-cell is-link @click="showPopup">展示弹出层</van-cell>
-<van-popup v-model="show"  :style="{height:'30%',width:'50%'}">
-    <img src="img\barimg\1168034_1601959102.jpg" alt="">
-</van-popup>
-    <van-cell is-link @click="showPopup">展示弹出层</van-cell>
-<van-popup v-model="show"  position="bottom" :style="{height:'100%',width:'100%'}">
-    <img src="img\userimg\37684471_1591506914.jpg" alt="">
-</van-popup>
+  <div class="userimgs" v-for="(item,index) in lisData" v-show="item" :key="index">
+    <img v-if="item" class="img" :src="item" alt="" @click="getImg(lisData,index)">
+  </div>
+
 </div>
 </template>
 
 <script>
+import {ImagePreview} from "vant"
 export default {
-  data() {
+  name:"ImagePreview",
+  data(){
     return {
-      show: false,
-    };
+      lisData :["img/userimg/91848884_1591506915.jpg","img/userimg/78312157_1591506915.jpg"]
+    }
   },
-
-  methods: {
-    showPopup() {
-      this.show = true;
-    },
-  },
-};
+  methods:{
+    getImg(images,index){
+      ImagePreview({
+        images:this.lisData,
+        showIndex:true,
+        loop:false,
+        startPosition:index
+      })
+    }
+  }
+}
 </script>
 
+<style scoped>
+img{
+  width: 20%;
+}
+</style>

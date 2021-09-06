@@ -42,19 +42,10 @@
 </div>
 <h2>古风女生头像|倾国倾城貌 惊为天下人</h2>
 <div class="userimgs">
-  <img src="img\userimg\37684471_1591506914.jpg" is-link @click="showPopup" alt="">
-  <van-popup v-model="show"  :style="{width:'100%'}" @click="noPopup">
-    <img src="img\userimg\37684471_1591506914.jpg" style=" margin:0;display: block" alt="">
-</van-popup>
-  <img src="img\userimg\37684471_1591506914.jpg" alt="">
-  <img src="img\userimg\37684471_1591506914.jpg" alt="">
-  <img src="img\userimg\37684471_1591506914.jpg" alt="">
-  <img src="img\userimg\37684471_1591506914.jpg" alt="">
-  <img src="img\userimg\37684471_1591506914.jpg" alt="">
-  <img src="img\userimg\37684471_1591506914.jpg" alt="">
-  <img src="img\userimg\37684471_1591506914.jpg" alt="">
-  <img src="img\userimg\37684471_1591506914.jpg" alt="">
-</div>
+<div  v-for="(item,index) in lisData" v-show="item" :key="index">
+    <img v-if="item" class="img" :src="item" alt="" @click="getImg(lisData,index)">
+  </div>
+  </div>
 <div class="footcard">
   <div>
   <i class="jinsom-icon jinsom-xihuan2"><span>0</span></i>
@@ -86,24 +77,36 @@
 </template>
 
 <script>
+import {ImagePreview} from "vant"
 export default {
+  name:"ImagePreview",
   data(){
     return {
       title:["全部","动态","文章","视频","音乐","帖子","关注","推荐"],
       active:0,
-      show:false
+      show:false,
+      lisData :["img/userimg/91848884_1591506915.jpg","img/userimg/78312157_1591506915.jpg","img/userimg/87572819_1591506915.jpg","img/userimg/54371630_1591506915.jpg","img/userimg/43990629_1591506915.jpg","img/userimg/37684471_1591506914.jpg","img/userimg/26093575_1591506915.jpg","img/userimg/13250779_1591506915.jpg","img/userimg/9657860_1591506914.jpg",]
     }
   },
   methods:{
     onClick(name, title) {
       console.log(title,name)
     },
-    showPopup() {
+    showPopup(event) {
+      console.log(event)
       this.show = true;
     },
     noPopup() {
       this.show = false;
     },
+    getImg(images,index){
+      ImagePreview({
+        images:this.lisData,
+        showIndex:true,
+        loop:false,
+        startPosition:index
+      })
+    }
   
   }
 }
@@ -123,8 +126,7 @@ export default {
   .userimg{
     margin-left: 1vw;
     display: flex;
-    img{
-      
+    img{ 
       width: 10vw;
       height: 10vw;
       border-radius: 100%;
@@ -158,9 +160,14 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    img{
-      width: 33%;
+     div{
+       width: 33%;
+     img{
+      width: 100%;
+      float: left;
       margin-top: 0.5vw;
+      
+    }
     }
   }
   .footcard{
@@ -169,8 +176,6 @@ export default {
     div{
       width: 88.5vw;
       margin: 0 auto;
-      margin-top: 0.1rem;
-      padding: 0.2rem 0;
       border-top: 1px solid #f5f5f5;
       i{
       font-size: 0.3rem;
@@ -253,7 +258,7 @@ export default {
     height: 0.5rem;
     display: inline-block;
     margin: 0 auto;
-    width: 60%;
+    width: 4.2rem;
     text-align: center;
     border-radius: 20px;
     background:none;
@@ -261,9 +266,9 @@ export default {
      background-color: #fff;
      background-image: url(https://b.yzcdn.cn/vant/icon-demo-1126.png);
      background-repeat: no-repeat;
-     background-position: 10vw;
-     background-size: 5vw;
-     font-size: 3.1vw;
+     background-position: 0.5rem;
+     background-size: 0.35rem;
+     font-size: 0.25rem;
   }
   i{
     color: #fff;
@@ -271,7 +276,7 @@ export default {
     margin-right: 5vw;
   }
 }
-.jinsom-fabu:before { content: "\e612"; font-size: 11vw;color: #dd565f;font-size: 0.8rem;}
+.jinsom-fabu:before { content: "\e612"; font-size: 11vw;color: #dd565f;font-size: 0.85rem;}
 
 .footer{
   height: 0.85rem !important;
