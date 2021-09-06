@@ -46,7 +46,10 @@
   <van-popup v-model="show"  :style="{width:'100%'}" @click="noPopup">
     <img src="img\userimg\37684471_1591506914.jpg" style="width:100%;margin:0;display: block" alt="">
 </van-popup>
-  <img src="img\userimg\37684471_1591506914.jpg" alt="">
+  <img src="img\userimg\37684471_1591506914.jpg" is-link @click="showPopup" alt="">
+  <van-popup v-model="show"  :style="{width:'100%'}" @click="noPopup">
+    <img src="img\userimg\37684471_1591506914.jpg" style="width:100%;margin:0;display: block" alt="">
+</van-popup>
   <img src="img\userimg\37684471_1591506914.jpg" alt="">
   <img src="img\userimg\37684471_1591506914.jpg" alt="">
   <img src="img\userimg\37684471_1591506914.jpg" alt="">
