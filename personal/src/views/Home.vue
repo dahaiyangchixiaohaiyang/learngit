@@ -32,18 +32,18 @@
   </div>
 </div>
 <!-- 内容区域 -->
-<div class="card">
+<div class="card" v-for="(item,i) of data" :key="i">
 <div class="userimg">
   <img src="img\userimg\27.png" alt="">
   <div>
-    <h1>执酒共酌</h1>
-    <p>06-07 13:15</p>
+    <h1>{{item.nid}}</h1>
+    <p>{{item.ctime}}</p>
   </div>
 </div>
-<h2>古风女生头像|倾国倾城貌 惊为天下人</h2>
+<h2>{{item.content}}</h2>
 <div class="userimgs">
-<div  v-for="(item,index) in lisData" v-show="item" :key="index">
-    <img v-if="item" class="img" :src="item" alt="" @click="getImg(lisData,index)">
+<div  v-for="(item,index) in lisData[i].imgs.split(',')" v-show="item" :key="index">
+    <img v-if="item" class="img" :src="item" alt="" @click="getImg(lisData,index,i)">
   </div>
   </div>
 <div class="footcard">
@@ -78,6 +78,7 @@
 
 <script>
 import {ImagePreview} from "vant"
+import axios from "axios";
 export default {
   name:"ImagePreview",
   data(){
@@ -85,6 +86,7 @@ export default {
       title:["全部","动态","文章","视频","音乐","帖子","关注","推荐"],
       active:0,
       show:false,
+      data:[],
       lisData :["img/userimg/91848884_1591506915.jpg","img/userimg/78312157_1591506915.jpg","img/userimg/87572819_1591506915.jpg","img/userimg/54371630_1591506915.jpg","img/userimg/43990629_1591506915.jpg","img/userimg/37684471_1591506914.jpg","img/userimg/26093575_1591506915.jpg","img/userimg/13250779_1591506915.jpg","img/userimg/9657860_1591506914.jpg",]
     }
   },
@@ -99,15 +101,23 @@ export default {
     noPopup() {
       this.show = false;
     },
-    getImg(images,index){
+    getImg(images,index,i){
       ImagePreview({
-        images:this.lisData,
+        images:this.lisData[i].imgs.split(','),
         showIndex:true,
         loop:false,
         startPosition:index
       })
     }
   
+  },
+  mounted(){
+    axios.get('/all').then((result)=>{
+      console.log(result.data)
+      this.data=result.data.results 
+      var arr =result.data.results
+      this.lisData=arr
+    })
   }
 }
 </script>
@@ -121,8 +131,8 @@ export default {
   background-color: #fff;
   width: 96vw;
   margin: 0 auto;
-  margin-bottom: 0.85rem;
-  margin-top: 0.45rem;
+  margin-bottom: 0.2rem;
+  margin-top: 0.2rem;
   .userimg{
     margin-left: 1vw;
     display: flex;

@@ -8,6 +8,9 @@ import './assets/font/iconfont2.css'
 import './assets/font/iconfont.css'
 import './assets/css/iphon.css'
 import { ImagePreview } from 'vant';
+import axios from 'axios';
+
+axios.defaults.baseURL="http://127.0.0.1:3000/"
 
 //引入全局通用样式
 import './assets/css/index.css'
