@@ -57,6 +57,16 @@ server.get('/all', (req, res) => {
     res.send({ message: 'ok', code: 200, results: results });
   });
 });
+// 获取导航图片话题的接口
+server.get('/other2', (req, res) => {
+  // SQL语句以获取文章分类表的数据
+  let sql = 'SELECT * FROM other2 ';
+  // 执行SQL语句
+  pool.query(sql, (error, results) => {
+    if (error) throw error;
+    res.send({ message: 'ok', code: 200, results: results });
+  });
+});
 
 // 获取指定分类下包含文章数据的接口
 server.get('/articles', (req, res) => {

@@ -20,15 +20,8 @@
 <!-- 图片滑动 -->
 <div class="imgs">
   <div>
-<a href=""><img src="\img\barimg\1168034_1601959102.jpg" alt=""><span>#图片</span></a>
-<a href=""><img src="\img\barimg\1168034_1601959102.jpg" alt=""><span>#图片</span></a>
-<a href=""><img src="\img\barimg\1168034_1601959102.jpg" alt=""><span>#图片</span></a>
-<a href=""><img src="\img\barimg\1168034_1601959102.jpg" alt=""><span>#图片</span></a>
-<a href=""><img src="\img\barimg\1168034_1601959102.jpg" alt=""><span>#图片</span></a>
-<a href=""><img src="\img\barimg\1168034_1601959102.jpg" alt=""><span>#图片</span></a>
-<a href=""><img src="\img\barimg\1168034_1601959102.jpg" alt=""><span>#图片</span></a>
-<a href=""><img src="\img\barimg\1168034_1601959102.jpg" alt=""><span>#图片</span></a>
-<a href=""><img src="\img\barimg\1168034_1601959102.jpg" alt=""><span>#图片</span></a>
+<a href="" v-for="(item,i) of imgs"  :key="i"><img :src="item.img" alt=""><span>{{item.title}}</span></a>
+
   </div>
 </div>
 <!-- 内容区域 -->
@@ -69,17 +62,23 @@
   <van-tabbar-item class="jinsom-icon jinsom-xinxi">
     <p>消息</p>
   </van-tabbar-item>
-  <van-tabbar-item class="jinsom-icon jinsom-geren">
+  <van-tabbar-item class="jinsom-icon jinsom-geren" @click="btna">
     <p>我的</p>
   </van-tabbar-item>
 </van-tabbar>
+
+<transition name="van-slide-up">
+  <div v-show="visible2.visible" class="di"><login :visible2="visible2"></login></div>
+</transition>
   </div> 
 </template>
 
 <script>
 import {ImagePreview} from "vant"
 import axios from "axios";
+import login from './login.vue';
 export default {
+  components: { login },
   name:"ImagePreview",
   data(){
     return {
@@ -87,7 +86,9 @@ export default {
       active:0,
       show:false,
       data:[],
-      lisData :["img/userimg/91848884_1591506915.jpg","img/userimg/78312157_1591506915.jpg","img/userimg/87572819_1591506915.jpg","img/userimg/54371630_1591506915.jpg","img/userimg/43990629_1591506915.jpg","img/userimg/37684471_1591506914.jpg","img/userimg/26093575_1591506915.jpg","img/userimg/13250779_1591506915.jpg","img/userimg/9657860_1591506914.jpg",]
+      visible2:{visible:false},
+      imgs:[],
+      lisData :[]
     }
   },
   methods:{
@@ -108,7 +109,13 @@ export default {
         loop:false,
         startPosition:index
       })
-    }
+    },
+      btna(){
+       this.visible2.visible=true
+       console.log(this.visible2.visible)
+      },
+      
+    
   
   },
   mounted(){
@@ -118,6 +125,10 @@ export default {
       var arr =result.data.results
       this.lisData=arr
     })
+    axios.get('/other2').then((result)=>{
+      console.log(result.data)
+      this.imgs=result.data.results
+    })
   }
 }
 </script>
@@ -126,6 +137,12 @@ export default {
 *{
   padding: 0;
   margin: 0;
+}
+.di{
+  width: 100%;
+  position:fixed;
+  top: 0%;
+  z-index: 1000;
 }
 .card{
   background-color: #fff;
