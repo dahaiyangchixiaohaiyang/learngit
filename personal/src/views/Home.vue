@@ -27,7 +27,7 @@
 <!-- 内容区域 -->
 <div class="card" v-for="(item,i) of data" :key="i">
 <div class="userimg">
-  <img src="img\userimg\27.png" alt="">
+  <img :src="item.headjmg" alt="">
   <div>
     <h1>{{item.nid}}</h1>
     <p>{{item.ctime}}</p>
@@ -103,12 +103,14 @@ export default {
       this.show = false;
     },
     getImg(images,index,i){
+      console.log(index)
       ImagePreview({
         images:this.lisData[i].imgs.split(','),
         showIndex:true,
         loop:false,
         startPosition:index
       })
+      
     },
       btna(){
        this.visible2.visible=true
@@ -120,13 +122,13 @@ export default {
   },
   mounted(){
     axios.get('/all').then((result)=>{
-      console.log(result.data)
+      console.log(result.data.results)
       this.data=result.data.results 
       var arr =result.data.results
       this.lisData=arr
     })
     axios.get('/other2').then((result)=>{
-      console.log(result.data)
+      console.log(result.data.results)
       this.imgs=result.data.results
     })
   }
@@ -187,6 +189,10 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    &::after{
+      content: "";
+      flex:auto
+    }
      div{
        width: 33%;
      img{
