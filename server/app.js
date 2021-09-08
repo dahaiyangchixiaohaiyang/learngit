@@ -68,6 +68,20 @@ server.get('/other2', (req, res) => {
   });
 });
 
+// 获取详情页的接口
+server.get('/detail', (req, res) => {
+  // 接参
+  let obj=req.query
+  // SQL语句以获取文章分类表的数据
+  let sql = 'SELECT * FROM other where lid=? ';
+  // 执行SQL语句
+  pool.query(sql, [obj.id],(error, results) => {
+    if (error) throw error;
+    res.send({ message: 'ok', code: 200, results: results });
+  });
+});
+
+
 // 获取指定分类下包含文章数据的接口
 server.get('/articles', (req, res) => {
   // 获取客户端传递的cid参数
@@ -110,21 +124,21 @@ server.get('/articles', (req, res) => {
 });
 
 // 获取特定文章数据的接口
-server.get('/detail', (req, res) => {
-  //获取地址栏中的id参数
-  let id = req.query.id;
+// server.get('/detail', (req, res) => {
+//   //获取地址栏中的id参数
+//   let id = req.query.id;
 
-  // SQL查询
-  let sql = "SELECT r.id,subject,content,created_at,nickname,avatar,article_number FROM xzqa_article AS r INNER JOIN xzqa_author AS u ON author_id = u.id WHERE r.id=?";
+//   // SQL查询
+//   let sql = "SELECT r.id,subject,content,created_at,nickname,avatar,article_number FROM xzqa_article AS r INNER JOIN xzqa_author AS u ON author_id = u.id WHERE r.id=?";
 
-  // 执行SQL查询
-  pool.query(sql, [id], (error, results) => {
-    if (error) throw error;
-    // 返回数据到客户端
-    res.send({ message: 'ok', code: 200, result: results[0] });
-  });
+//   // 执行SQL查询
+//   pool.query(sql, [id], (error, results) => {
+//     if (error) throw error;
+//     // 返回数据到客户端
+//     res.send({ message: 'ok', code: 200, result: results[0] });
+//   });
 
-});
+// });
 
 //用户注册接口
 server.post('/register', (req, res) => {

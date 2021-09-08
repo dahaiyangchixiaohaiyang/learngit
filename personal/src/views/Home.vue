@@ -33,7 +33,9 @@
     <p>{{item.ctime}}</p>
   </div>
 </div>
+<router-link :to="`/detail?id=${item.lid}`">
 <h2>{{item.content}}</h2>
+</router-link>
 <div class="userimgs">
 <div  v-for="(item,index) in lisData[i].imgs.split(',')" v-show="item" :key="index">
     <img v-if="item" class="img" :src="item" alt="" @click="getImg(lisData,index,i)">
