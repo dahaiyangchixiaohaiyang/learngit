@@ -7,8 +7,8 @@
     </div>
     <!-- 滚动导航 -->
     <div class="bar">
-    <van-tabs @click="onClick">
-  <van-tab v-for="(index,i) in title"  type="card" :title="index" :key="i">
+    <van-tabs @click="onClick" :v-model="activeName">
+  <van-tab v-for="(index,i) in title"  type="card" :title="index" :key="i" :name="index">
   </van-tab>
 </van-tabs>
 </div>
@@ -85,17 +85,19 @@ export default {
   data(){
     return {
       title:["全部","动态","文章","视频","音乐","帖子","关注","推荐"],
+      activeName:'全部',
       active:0,
       show:false,
       data:[],
       visible2:{visible:false},
       imgs:[],
-      lisData :[]
+      lisData :[],
+      fenye:1,
     }
   },
   methods:{
-    onClick(name, title) {
-      console.log(title,name)
+    onClick(name) {
+      console.log(name)
     },
     showPopup(event) {
       console.log(event)
@@ -123,7 +125,8 @@ export default {
   
   },
   mounted(){
-    axios.get('/all').then((result)=>{
+      axios.get(`/fenye?cid=${this.activeName}&page=${this.fenye}`).then((result)=>{
+      
       console.log(result.data.results)
       this.data=result.data.results 
       var arr =result.data.results
@@ -191,9 +194,10 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    &::after{
+    
+     &::after{
       content: "";
-      flex:auto
+      width: 33%;
     }
      div{
        width: 33%;

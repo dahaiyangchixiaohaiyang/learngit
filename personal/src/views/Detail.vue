@@ -1,8 +1,6 @@
 <template>
 <div>
-  <div class="detail" v-html="details">
-    
-    
+  <div class="detail" v-html="details">  
   </div>
   </div>
 </template>
@@ -105,6 +103,7 @@ export default {
     height: 0.6rem;
     line-height: 0.6rem;
     font-size: 0.3rem;
+    color: #fff;
   }
   }
 }
