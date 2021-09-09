@@ -25,6 +25,10 @@
   </div>
 </div>
 <!-- 内容区域 -->
+<div style="margin-bottom: 1rem;"  v-infinite-scroll="loadmore"
+        infinite-scroll-distance="70"
+        infinite-scroll-disabled="busy"
+        :infinite-scroll-immediate-check="true">
 <div class="card" v-for="(item,i) of data" :key="i">
 <div class="userimg">
   <img :src="item.headjmg" alt="">
@@ -50,6 +54,9 @@
   </div>
 </div>
 </div>
+</div>
+
+
 
 <!-- 底部footer -->
 <van-tabbar v-model="active" class="footer" active-color="#dd565f" flxed>
@@ -93,9 +100,27 @@ export default {
       imgs:[],
       lisData :[],
       fenye:1,
+      busy:false,
+      
     }
   },
   methods:{
+    // 监听触底事件
+    loadmore(){
+      this.busy=true;  //防止重复调用loadmore
+      // let cid = this.navactive
+      this.fenye++;
+
+      console.log(`${this.activeName}:${this.fenye}`)
+      axios.get(`/fenye?cid=${this.activeName}&page=${this.fenye}`).then((res)=>{
+        console.log(res.data.results)
+        this.lisData.push(...res.data.results)
+        this.busy=false;
+        if(res.data.results.length==0){
+          console.log(`到底了`)
+        }
+      })
+    },
     onClick(name) {
       console.log(name)
     },
@@ -141,6 +166,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 *{
   padding: 0;
   margin: 0;

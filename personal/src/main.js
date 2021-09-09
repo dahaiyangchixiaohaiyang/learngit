@@ -9,7 +9,10 @@ import './assets/font/iconfont.css'
 import './assets/css/iphon.css'
 import { ImagePreview } from 'vant';
 import axios from 'axios';
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
 
+Vue.use(MintUI)
 axios.defaults.baseURL="http://127.0.0.1:3000/"
 
 //引入全局通用样式
