@@ -25,7 +25,7 @@
   </div>
 </div>
 <!-- 内容区域 -->
-<div style="margin-bottom: 1rem;"  v-infinite-scroll="loadmore"
+<div  v-infinite-scroll="loadmore"
         infinite-scroll-distance="70"
         infinite-scroll-disabled="busy"
         :infinite-scroll-immediate-check="true">
@@ -56,7 +56,11 @@
 </div>
 </div>
 
-
+<!-- 底部没数据后的提示 -->
+<div class="foot" :class="hide" >
+<i class="jinsom-icon jinsom-kong"></i>
+<p>暂时没有数据了</p>
+</div>
 
 <!-- 底部footer -->
 <van-tabbar v-model="active" class="footer" active-color="#dd565f" flxed>
@@ -83,9 +87,11 @@
 </template>
 
 <script>
+import { Toast } from 'vant';
 import {ImagePreview} from "vant"
 import axios from "axios";
 import login from './login.vue';
+Toast.setDefaultOptions({ duration: 500 });
 export default {
   components: { login },
   name:"ImagePreview",
@@ -101,16 +107,17 @@ export default {
       lisData :[],
       fenye:1,
       busy:false,
-      
+      hide:'hide'
     }
   },
   methods:{
+    
     // 监听触底事件
     loadmore(){
       this.busy=true;  //防止重复调用loadmore
       // let cid = this.navactive
       this.fenye++;
-
+      
       console.log(`${this.activeName}:${this.fenye}`)
       axios.get(`/fenye?cid=${this.activeName}&page=${this.fenye}`).then((res)=>{
         console.log(res.data.results)
@@ -118,11 +125,28 @@ export default {
         this.busy=false;
         if(res.data.results.length==0){
           console.log(`到底了`)
+          this.hide='appear'
+        }else{
+          this.hide='hide'
+          Toast.loading({
+      message: '加载中...',
+      forbidClick: true,
+      loadingType: 'spinner',
+      
+      });
         }
       })
     },
     onClick(name) {
       console.log(name)
+      window.scrollTo(0, 0);
+      this.fenye=1
+      axios.get(`/fenye?cid=${name}&page=1`).then((result)=>{
+      console.log(result.data.results)
+      this.data=result.data.results 
+      var arr =result.data.results
+      this.lisData=arr
+    })
     },
     showPopup(event) {
       console.log(event)
@@ -149,9 +173,8 @@ export default {
     
   
   },
-  mounted(){
+  mounted(){     
       axios.get(`/fenye?cid=${this.activeName}&page=${this.fenye}`).then((result)=>{
-      
       console.log(result.data.results)
       this.data=result.data.results 
       var arr =result.data.results
@@ -170,6 +193,28 @@ export default {
 *{
   padding: 0;
   margin: 0;
+}
+.hide{
+  display: none;
+}
+.appear{
+  display: block;
+}
+.foot{
+  margin-bottom: 0.85rem;
+  text-align: center;
+  color: #888;
+  i{
+    margin: 0 auto;
+    font-size: 0.6rem;
+    &::before{
+      content:"\e900"
+    }
+    
+  }
+  p{
+      font-size: 0.25rem;
+    }
 }
 .di{
   width: 100%;
