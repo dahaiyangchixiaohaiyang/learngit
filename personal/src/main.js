@@ -11,6 +11,22 @@ import { ImagePreview } from 'vant';
 import axios from 'axios';
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
+// 弹出框禁止滑动
+Vue.prototype.noScroll=function(){
+  var mo = function(e){ e.preventDefault()}
+    
+  
+  document.body.style.overflow = 'hidden'   //出现滚动条
+  document.addEventListener('touchmove', mo, false)
+}
+// 弹出框可以滑动
+Vue.prototype.canScroll=function(){
+  var mo = function(e){
+    e.preventDefault()
+  }
+  document.body.style.overflow = ''   //出现滚动条
+  document.removeEventListener('touchmove',mo,false)
+}
 
 Vue.use(MintUI)
 axios.defaults.baseURL="http://127.0.0.1:3000/"
@@ -22,7 +38,7 @@ import './assets/css/index.css'
 // import './assets/css/device/index.less'
 
 //rem转换
-import './utils/lib-flexible'
+// import './utils/lib-flexible'
 // import { Icon } from 'vant';
 // Vue.use(Icon);
 Vue.use(Vant);

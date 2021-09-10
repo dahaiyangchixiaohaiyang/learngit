@@ -44,6 +44,7 @@ export default {
   methods: {
     btns() {
       this.visible2.visible = false;
+      this.canScroll()
     },
     onSubmit(values) {
       console.log("submit", values);

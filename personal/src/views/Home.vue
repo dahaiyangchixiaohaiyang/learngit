@@ -37,9 +37,11 @@
     <p>{{item.ctime}}</p>
   </div>
 </div>
-<router-link :to="`/detail?id=${item.lid}`">
-<h2>{{item.content}}</h2>
-</router-link>
+<!-- <router-link :to="`/detail?id=${item.lid}`"> -->
+<!-- <router-link> -->
+  <van-cell is-link @click="showPopup2(item.lid)" ><h2>{{item.content}}</h2></van-cell>
+
+<!-- </router-link> -->
 <div class="userimgs">
 <div  v-for="(item,index) in lisData[i].imgs.split(',')" v-show="item" :key="index">
     <img v-if="item" class="img" :src="item" alt="" @click="getImg(lisData,index,i)">
@@ -80,6 +82,14 @@
   </van-tabbar-item>
 </van-tabbar>
 
+<!-- 右滑详情页 -->
+<!-- <transition name="van-slide-right">
+  <div v-show="visibles2.visible"><detail :visibles2="visibles2" :detail="detail"></detail></div>
+</transition> -->
+
+<van-popup v-model="visibles2.visible"  position="right" :style="{ width:'100%',height: '100%',overflow:'hidden'}" :lock-scroll="false"><detail :visibles2="visibles2" :detail="detail"></detail></van-popup>
+
+<!-- 上滑登陆 -->
 <transition name="van-slide-up">
   <div v-show="visible2.visible" class="di"><login :visible2="visible2"></login></div>
 </transition>
@@ -91,9 +101,10 @@ import { Toast } from 'vant';
 import {ImagePreview} from "vant"
 import axios from "axios";
 import login from './login.vue';
+import detail from './Detail.vue';
 Toast.setDefaultOptions({ duration: 500 });
 export default {
-  components: { login },
+  components: { login ,detail},
   name:"ImagePreview",
   data(){
     return {
@@ -107,10 +118,24 @@ export default {
       lisData :[],
       fenye:1,
       busy:false,
-      hide:'hide'
+      hide:'hide',
+      visibles2:{visible:false},
+      lid: 50,
+      detail:''
     }
   },
   methods:{
+    // 鼠标点击传参给详情页
+    showPopup2(a){
+      this.lid=a-1
+      console.log(this.lid)
+      this.detail=this.lisData[this.lid].detail
+      this.visibles2.visible=true
+      console.log(this.detail)
+      this.noScroll()
+      // this.canScroll()
+
+    },
     
     // 监听触底事件
     loadmore(){
@@ -168,6 +193,7 @@ export default {
       btna(){
        this.visible2.visible=true
        console.log(this.visible2.visible)
+       this.noScroll()
       },
       
     
@@ -422,5 +448,11 @@ export default {
 }
 .van-tabs--line .van-tabs__wrap{
   height: 0.6rem !important;
+}
+.van-cell{
+  line-height: 0.4rem !important;
+}
+.van-icon-arrow::before{
+  content: '' !important;
 }
 </style>

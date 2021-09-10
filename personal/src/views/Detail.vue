@@ -1,32 +1,59 @@
 <template>
 <div>
-  <div class="detail" v-html="details">  
+  <!-- v-html="details" -->
+  <div class="gongju" ></div>  
+  <div class="detail" v-html="detail" @click="btnd">
+    
   </div>
   </div>
 </template>
 <script>
 import axios from "axios"
 export default {
+  props: {
+    detail: '',
+    visibles2:''
+  },
   data(){
     return {
       details:''
     }
   },
+  methods:{
+    // btnd(event){
+    //  if(event.target.className === "jinsom-icon"){
+    //     console.log(`我是猪`)
+    //   }
+    // }
+    btnd(){
+      console.log(`我是猪`)
+      this.visibles2.visible=false
+      this.canScroll()
+    }
+  },
   mounted(){
-        let id = this.$route.query.id;
-        console.log(id)
-        axios.get(`/detail?id=${id}`).then((res)=>{
-            console.log(res)
-            this.details=res.data.results[0].detail
-            console.log(this.details)
-        })
+    
+        // let id = this.$route.query.id;
+        // console.log(id)
+        // axios.get(`/detail?id=${id}`).then((res)=>{
+        //     console.log(res)
+        //     this.details=res.data.results[0].detail
+        //     console.log(this.details)
+        // })
     }
 }
 </script>
 
 <style lang="scss">
+
 .contents { 
-  margin-top: 0.2rem;
+  overflow: auto;
+  // position: fixed;
+  background-color:#fff;
+  height: 100vh;
+  overflow:auto;
+  top: 0.7rem;
+  margin-top: 0.7rem;
   padding: 0 0.3rem;
   h1{
     font-size: 0.33rem;
@@ -63,6 +90,10 @@ export default {
   }
 }
 .debar{
+  overflow: auto;
+  width: 100%;
+  position: fixed;
+  top: 0;
   height: 0.7rem;
   background-color: #DE575D;
   display: flex;
