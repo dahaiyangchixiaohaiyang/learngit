@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Popup from "../views/test/Popup.vue"
 import Login from "../views/login.vue"
 import Detail from "../views/Detail"
+import Faxian from "../views/Faxian.vue"
 
 Vue.use(VueRouter)
 
@@ -16,6 +17,10 @@ const routes = [
   {
     path: '/detail',
     component: Detail
+  },
+  {
+    path: '/faxian',
+    component: Faxian
   },
   {
     path: '/login',

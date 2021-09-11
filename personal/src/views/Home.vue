@@ -69,7 +69,7 @@
   <van-tabbar-item class="jinsom-icon jinsom-shouye">
     <p>首页</p>
   </van-tabbar-item>
-  <van-tabbar-item class="jinsom-icon jinsom-shejiao">
+  <van-tabbar-item class="jinsom-icon jinsom-shejiao" to="/faxian">
     <p>发现</p>
   </van-tabbar-item>
   <van-tabbar-item class="jinsom-icon jinsom-fabu">
@@ -87,7 +87,7 @@
   <div v-show="visibles2.visible"><detail :visibles2="visibles2" :detail="detail"></detail></div>
 </transition> -->
 
-<van-popup v-model="visibles2.visible"  position="right" :style="{ width:'100%',height: '100%',overflow:'hidden'}" :lock-scroll="false"><detail :visibles2="visibles2" :detail="detail"></detail></van-popup>
+<van-popup v-model="visibles2.visible"  position="right" :style="{ width:'100%',height: '100%',overflow:'auto'}" :lock-scroll="false"><detail :visibles2="visibles2" :detail="detail"></detail></van-popup>
 
 <!-- 上滑登陆 -->
 <transition name="van-slide-up">
@@ -362,7 +362,7 @@ export default {
   
 }
 .topic{
-  margin-top: 1.65rem;
+  margin-top: 1.2rem;
   i{
     margin-left: 3vw;
     font-size: 5vw;

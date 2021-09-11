@@ -2,7 +2,7 @@
 <div>
   <!-- v-html="details" -->
   <div class="gongju" ></div>  
-  <div class="detail" v-html="detail" @click="btnd">
+  <div class="detail"  v-html="detail" @click="btnd">
     
   </div>
   </div>
@@ -20,16 +20,18 @@ export default {
     }
   },
   methods:{
-    // btnd(event){
-    //  if(event.target.className === "jinsom-icon"){
-    //     console.log(`我是猪`)
-    //   }
-    // }
-    btnd(){
-      console.log(`我是猪`)
-      this.visibles2.visible=false
-      this.canScroll()
+    btnd(event){
+     if(event.target.className === "debar"){
+        console.log(`我是猪`)
+        this.visibles2.visible=false
+        this.canScroll()
+      }
     }
+    // btnd(){
+    //   // console.log(`我是猪`)
+    //   this.visibles2.visible=false
+    //   this.canScroll()
+    // }
   },
   mounted(){
     
@@ -47,10 +49,10 @@ export default {
 <style lang="scss">
 
 .contents { 
-  overflow: auto;
+  // overflow: auto;
   // position: fixed;
   background-color:#fff;
-  height: 100vh;
+  height: 90vh;
   overflow:auto;
   top: 0.7rem;
   margin-top: 0.7rem;
@@ -90,7 +92,7 @@ export default {
   }
 }
 .debar{
-  overflow: auto;
+  // overflow: auto;
   width: 100%;
   position: fixed;
   top: 0;
