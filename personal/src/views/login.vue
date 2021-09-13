@@ -238,7 +238,13 @@ h1 {
   li{
     width: 20%;
     text-align: center;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
     i{
+      display: block;
       width: 100%;
       font-size: 0.5rem;
       color: #2897f0;

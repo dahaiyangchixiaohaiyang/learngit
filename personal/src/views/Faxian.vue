@@ -33,15 +33,15 @@
       </div>
       <ul class="faxianCon">
         <li><i>1</i><span>#古风句子#</span></li>
-        <li><i>1</i><span>#古风句子#</span></li>
-        <li><i>1</i><span>#古风句子#</span></li>
-        <li><i>1</i><span>#古风句子#</span></li>
-        <li><i>1</i><span>#古风句子#</span></li>
-        <li><i>1</i><span>#古风句子#</span></li>
-        <li><i>1</i><span>#古风句子#</span></li>
-        <li><i>1</i><span>#古风句子#</span></li>
-        <li><i>1</i><span>#古风句子#</span></li>
-        <li><i>1</i><span>#古风句子#</span></li>
+        <li><i>2</i><span>#古风句子#</span></li>
+        <li><i>3</i><span>#古风句子#</span></li>
+        <li><i>4</i><span>#古风句子#</span></li>
+        <li><i>5</i><span>#古风句子#</span></li>
+        <li><i>6</i><span>#古风句子#</span></li>
+        <li><i>7</i><span>#古风句子#</span></li>
+        <li><i>8</i><span>#古风句子#</span></li>
+        <li><i>9</i><span>#古风句子#</span></li>
+        <li><i>10</i><span>#古风句子#</span></li>
       </ul>
     </div>
     <!-- 底部footer -->
@@ -213,12 +213,37 @@ export default {
         height: 0.5rem;
         border: 2px solid rgba(244, 67, 54 ,0.5) !important;
         border-radius: 50%;
-        border-right-color: transparent;
-        transform: rotate(10deg);
-        &:nth-child(2){
-          border: 2px solid rgba(255, 193, 7 ,0.5)
-        }
+        border-right-color: transparent !important;
+        transform: rotate(10deg);       
       }
+      &:nth-child(2) i{
+          border: 2px solid rgba(255, 193, 7 ,0.5) !important;
+          border-right-color: transparent !important;
+        }
+      &:nth-child(3) i{
+          border: 2px solid rgba(33, 150, 243, 0.5) !important;
+          border-right-color: transparent !important;
+        }
+      &:nth-child(4) i{
+          border: 2px solid rgba(76, 175, 80, 0.5) !important;
+          border-right-color: transparent !important;
+        }
+      &:nth-child(5) i{
+          border: 2px solid rgba(189, 100, 204, 0.5) !important;
+          border-right-color: transparent !important;
+        }
+      &:nth-child(6) i{
+          border: 2px solid rgba(72, 199, 187, 0.5) !important;
+          border-right-color: transparent !important;
+        }
+      &:nth-child(7) i{
+          border: 2px solid rgb(200, 193, 193) !important;
+          border-right-color: transparent !important;
+        }
+      &:nth-child(8) i{
+          border: 2px solid rgb(200, 193, 193) !important;
+          border-right-color: transparent !important;
+        }
     }
   }
 }
