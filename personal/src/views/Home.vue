@@ -77,7 +77,7 @@
   <van-tabbar-item class="jinsom-icon jinsom-xinxi">
     <p>消息</p>
   </van-tabbar-item>
-  <van-tabbar-item class="jinsom-icon jinsom-geren" @click="btna">
+  <van-tabbar-item class="jinsom-icon jinsom-geren" @click="btna($store.state.islogin)">
     <p>我的</p>
   </van-tabbar-item>
 </van-tabbar>
@@ -190,10 +190,14 @@ export default {
       })
       
     },
-      btna(){
+      btna(islogin){
+        if(islogin==true){
+          this.$router.push('/user')
+        }else{
        this.visible2.visible=true
        console.log(this.visible2.visible)
        this.noScroll()
+       }
       },
       
     
@@ -249,6 +253,7 @@ export default {
   z-index: 1000;
 }
 .card{
+  touch-action: pan-y;
   background-color: #fff;
   width: 96vw;
   margin: 0 auto;
@@ -330,6 +335,7 @@ export default {
   
 }
 .imgs{
+  touch-action: pan-x;
   background-color: #fff;
   margin-top: 2vw;
   width: 100vw;
@@ -344,6 +350,7 @@ export default {
   div{
   display: flex;
   width: 80vw;
+  
   a{
     position: relative;
     &:nth-child(1){
@@ -353,6 +360,7 @@ export default {
     height: 30vw;
     margin-left: 1vw;
     img{
+    
     border-radius: 3vw;
     width: 28vw;
     height: 30vw;
@@ -362,6 +370,7 @@ export default {
   
 }
 .topic{
+  
   margin-top: 1.2rem;
   i{
     margin-left: 3vw;
@@ -441,6 +450,7 @@ export default {
 }
 .bar{
   align-items: center;
+  touch-action: pan-y;
 }
 .van-tabs__line {
   background-color: #dd565f !important;

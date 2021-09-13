@@ -208,8 +208,9 @@ server.post('/login', (req, res) => {
   //获取用户名和密码信息
   let username = req.body.username;
   let password = req.body.password;
+  console.log(username,password)
   // SQL语句
-  let sql = 'SELECT id,username,nickname,avatar FROM xzqa_author WHERE username=? AND password=MD5(?)';
+  let sql = 'SELECT * FROM bly WHERE admins=? AND mima=?';
   pool.query(sql, [username, password], (error, results) => {
     if (error) throw error;
     if(results.length == 0){ //登录失败
@@ -220,6 +221,23 @@ server.post('/login', (req, res) => {
   });
 
 });
+// // 用户登录接口
+// server.post('/login', (req, res) => {
+//   //获取用户名和密码信息
+//   let username = req.body.username;
+//   let password = req.body.password;
+//   // SQL语句
+//   let sql = 'SELECT id,username,nickname,avatar FROM xzqa_author WHERE username=? AND password=MD5(?)';
+//   pool.query(sql, [username, password], (error, results) => {
+//     if (error) throw error;
+//     if(results.length == 0){ //登录失败
+//       res.send({message:'login failed',code:201});
+//     } else {                 //登录成功
+//       res.send({message:'ok',code:200,result:results[0]});
+//     }
+//   });
+
+// });
 
 // 指定服务器对象监听的端口号
 server.listen(3000, () => {

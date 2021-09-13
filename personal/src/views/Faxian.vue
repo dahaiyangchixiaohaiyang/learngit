@@ -57,7 +57,7 @@
   <van-tabbar-item class="jinsom-icon jinsom-xinxi">
     <p>消息</p>
   </van-tabbar-item>
-  <van-tabbar-item class="jinsom-icon jinsom-geren" @click="btna">
+  <van-tabbar-item class="jinsom-icon jinsom-geren" @click="btna($store.state.islogin)">
     <p>我的</p>
   </van-tabbar-item>
 </van-tabbar>
@@ -83,10 +83,14 @@ export default {
     }
   },
   methods:{
-    btna(){
+    btna(islogin){
+        if(islogin==true){
+          this.$router.push('/user')
+        }else{
        this.visible2.visible=true
        console.log(this.visible2.visible)
        this.noScroll()
+       }
       },
   }
 }
@@ -173,6 +177,7 @@ export default {
   }
 }
 .faxianH{
+  background-color: #fff;
   width: 96%;
   margin: 0 auto;
   .huoHead{
@@ -246,5 +251,8 @@ export default {
         }
     }
   }
+}
+.faxian{
+  touch-action: pan-y;
 }
 </style>

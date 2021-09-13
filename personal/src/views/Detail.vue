@@ -49,6 +49,7 @@ export default {
 <style lang="scss">
 
 .contents { 
+  touch-action: pan-y;
   // overflow: auto;
   // position: fixed;
   background-color:#fff;

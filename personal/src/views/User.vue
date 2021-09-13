@@ -92,8 +92,8 @@
   </div>
   </div>
   <!-- 常用模块 -->
-  <div class="cy">
-    <p>常用</p>
+  <div class="cy cy3">
+    <p>更多</p>
   <div class="changYong">
     <div>
       <div><i class="jinsom-icon jinsom-shezhi"></i></div>
@@ -119,7 +119,7 @@
   <van-tabbar-item class="jinsom-icon jinsom-shouye" to="/">
     <p>首页</p>
   </van-tabbar-item>
-  <van-tabbar-item class="jinsom-icon jinsom-shejiao">
+  <van-tabbar-item class="jinsom-icon jinsom-shejiao" to="/faxian">
     <p>发现</p>
   </van-tabbar-item>
   <van-tabbar-item class="jinsom-icon jinsom-fabu">
@@ -127,7 +127,7 @@
   <van-tabbar-item class="jinsom-icon jinsom-xinxi">
     <p>消息</p>
   </van-tabbar-item>
-  <van-tabbar-item class="jinsom-icon jinsom-geren" @click="btna">
+  <van-tabbar-item class="jinsom-icon jinsom-geren">
     <p>我的</p>
   </van-tabbar-item>
 </van-tabbar>
@@ -162,6 +162,7 @@ export default {
   margin-top: 0.2rem;
   background-color: #fff;
   height: 1.6rem;
+  padding: 0.2rem 0;
   
   p{
     font-size: 0.3rem;
@@ -172,7 +173,7 @@ export default {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin-top: -0.4rem;
+  margin-top: -0.2rem;
   
   div{
     height: 1rem;
@@ -198,6 +199,9 @@ export default {
 }
 .cy2{
   height: 2.7rem;
+}
+.cy3{
+ 
 }
 .faxianbar{
   position: fixed;
@@ -229,8 +233,9 @@ export default {
   background-color: #fff;
   width: 96%;
   margin: 0 auto;
-  padding: 0.2rem 0;
+  padding: 0.3rem 0;
   border-radius: 0.1rem;
+  margin-top: 0.2rem;
   .lists{
     margin-top: 0.2rem;
     width: 100%;
@@ -256,7 +261,7 @@ export default {
     align-items: center;
     margin-bottom: 0.2rem;
     
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     
   .userXinxi {
       width: 14%;
@@ -317,9 +322,10 @@ export default {
   }
 }
 .jinsom-fabu:before { content: "\e612"; font-size: 11vw;color: #dd565f;font-size: 0.85rem;}
+.ursrS{
+  margin-bottom: 00.7rem;
+  touch-action: pan-y;
+}
 </style>
 <style>
-.jinsom-flag{
- 
-        }
 </style>

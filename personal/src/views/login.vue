@@ -12,24 +12,34 @@
       <li><span>密码登陆</span><span>短信登陆</span></li>
       <li>
         <van-icon name="contact" />
-        <input type="text" placeholder="手机/邮箱/用户名" />
+        <input type="text" placeholder="手机/邮箱/用户名" v-model="name" />
       </li>
       <li>
         <van-icon name="closed-eye" />
-        <input type="text" placeholder="请输入密码" />
+        <input type="password" placeholder="请输入密码" v-model="pwd" />
       </li>
-      <li><a href="">登陆</a></li>
-      <li><a href="">注册</a></li>
+      <li><a href="javascript:" @click="loginbtn">登陆</a></li>
+      <li><a href="javascript:">注册</a></li>
     </div>
     <ul class="uls">
-      <li><i class="jinsom-icon jinsom-qq"></i><p>QQ</p></li>
-      <li><i class="jinsom-icon jinsom-weibo"></i><p>微博</p></li>
-      <li><i class="jinsom-icon jinsom-wenhao"></i><p>忘记密码</p></li>
+      <li>
+        <i class="jinsom-icon jinsom-qq"></i>
+        <p>QQ</p>
+      </li>
+      <li>
+        <i class="jinsom-icon jinsom-weibo"></i>
+        <p>微博</p>
+      </li>
+      <li>
+        <i class="jinsom-icon jinsom-wenhao"></i>
+        <p>忘记密码</p>
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   props: {
     visible2: {},
@@ -37,17 +47,44 @@ export default {
   data() {
     return {
       active: "1",
-      username: "",
-      password: "",
+      name: "",
+      pwd: "",
     };
   },
   methods: {
     btns() {
       this.visible2.visible = false;
-      this.canScroll()
+      this.canScroll();
     },
     onSubmit(values) {
       console.log("submit", values);
+    },
+    loginbtn() {
+      console.log(this.name, this.pwd);
+      axios
+        .post("/login", `username=${this.name}&password=${this.pwd}`)
+        .then((res) => {
+          console.log(res);
+          if (res.data.code == 200) {
+            this.$toast({
+              message: "登陆成功",
+              position: "bottom",
+              duration: "3000",
+            });
+            this.$store.commit("loginOk", this.name);
+            // 不仅需要存在vuex中,还需要存入sessionStorage
+            window.sessionStorage.setItem('islogin',true);
+            window.sessionStorage.setItem('name',this.name);
+            this.$router.push("/user");
+            this.canScroll();
+          } else {
+            this.$toast({
+              message: "登陆失败,账户密码输入错误",
+              position: "bottom",
+              duration: "3000",
+            });
+          }
+        });
     },
   },
 };
@@ -156,7 +193,7 @@ h1 {
       input {
         width: 65%;
         font-size: 0.3rem;
-        border:0;
+        border: 0;
         // border-bottom: 2px solid #888;
         position: absolute;
         top: 5%;
@@ -167,7 +204,7 @@ h1 {
       height: 15%;
       position: relative;
       margin-top: 5%;
-      
+
       .van-icon {
         font-size: 0.45rem;
         position: absolute;
@@ -186,14 +223,14 @@ h1 {
         background-color: #fff;
       }
     }
-    &:nth-child(4){
+    &:nth-child(4) {
       margin-top: 5%;
       border: 0;
       height: 15%;
-      a{
+      a {
         border-radius: 0.08rem;
         text-decoration: none;
-        color:#fff;
+        color: #fff;
         line-height: 0.7rem;
         height: 0.7rem;
         text-align: center;
@@ -205,14 +242,14 @@ h1 {
         font-size: 0.3rem;
       }
     }
-    &:nth-child(5){
+    &:nth-child(5) {
       margin-top: 2%;
       border: 0;
       height: 15%;
-      a{
+      a {
         border-radius: 0.08rem;
         text-decoration: none;
-        color:#fff;
+        color: #fff;
         line-height: 0.7rem;
         height: 0.7rem;
         text-align: center;
@@ -226,7 +263,7 @@ h1 {
     }
   }
 }
-.uls{
+.uls {
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -235,7 +272,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  li{
+  li {
     width: 20%;
     text-align: center;
     height: 10vh;
@@ -243,38 +280,38 @@ h1 {
     align-items: center;
     flex-wrap: wrap;
     justify-content: center;
-    i{
+    i {
       display: block;
       width: 100%;
       font-size: 0.5rem;
       color: #2897f0;
     }
-    p{
+    p {
       font-size: 0.25rem;
     }
-    &:nth-child(2){
+    &:nth-child(2) {
       width: 20%;
-    text-align: center;
-    i{
-      width: 100%;
-      font-size: 0.5rem;
-      color: #dc3039;
+      text-align: center;
+      i {
+        width: 100%;
+        font-size: 0.5rem;
+        color: #dc3039;
+      }
+      p {
+        font-size: 0.25rem;
+      }
     }
-    p{
-      font-size: 0.25rem;
-    }
-    }
-    &:nth-child(3){
+    &:nth-child(3) {
       width: 20%;
-    text-align: center;
-    i{
-      width: 100%;
-      font-size: 0.5rem;
-      color: #A0A0A0;
-    }
-    p{
-      font-size: 0.25rem;
-    }
+      text-align: center;
+      i {
+        width: 100%;
+        font-size: 0.5rem;
+        color: #a0a0a0;
+      }
+      p {
+        font-size: 0.25rem;
+      }
     }
   }
 }
