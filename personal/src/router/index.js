@@ -5,6 +5,7 @@ import Popup from "../views/test/Popup.vue"
 import Login from "../views/login.vue"
 import Detail from "../views/Detail"
 import Faxian from "../views/Faxian.vue"
+import User from "../views/User.vue"
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,10 @@ const routes = [
   {
     path: '/popup',
     component: Popup
+  },
+  {
+    path: '/user',
+    component: User
   },
   {
     path: '/about',
