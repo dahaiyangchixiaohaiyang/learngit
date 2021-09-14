@@ -69,7 +69,7 @@ export default {
             this.$toast({
               message: "登陆成功",
               position: "bottom",
-              duration: "3000",
+              duration: "2000",
             });
             this.$store.commit("loginOk", this.name);
             // 不仅需要存在vuex中,还需要存入sessionStorage
@@ -81,7 +81,7 @@ export default {
             this.$toast({
               message: "登陆失败,账户密码输入错误",
               position: "bottom",
-              duration: "3000",
+              duration: "2000",
             });
           }
         });
@@ -95,6 +95,7 @@ export default {
   margin-top: 0.5rem;
 }
 .login {
+  touch-action: pan-y;
   position: relative;
   background-color: #fff;
   width: 100%;

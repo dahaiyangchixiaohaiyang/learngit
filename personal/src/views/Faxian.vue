@@ -33,15 +33,15 @@
       </div>
       <ul class="faxianCon">
         <li><i>1</i><span>#古风句子#</span></li>
-        <li><i>2</i><span>#古风句子#</span></li>
-        <li><i>3</i><span>#古风句子#</span></li>
-        <li><i>4</i><span>#古风句子#</span></li>
-        <li><i>5</i><span>#古风句子#</span></li>
-        <li><i>6</i><span>#古风句子#</span></li>
-        <li><i>7</i><span>#古风句子#</span></li>
-        <li><i>8</i><span>#古风句子#</span></li>
-        <li><i>9</i><span>#古风句子#</span></li>
-        <li><i>10</i><span>#古风句子#</span></li>
+        <li><i>2</i><span>#汉服#</span></li>
+        <li><i>3</i><span>#古风图片#</span></li>
+        <li><i>4</i><span>#古风小说#</span></li>
+        <li><i>5</i><span>#古风头像#</span></li>
+        <li><i>6</i><span>#诗词#</span></li>
+        <li><i>7</i><span>#古风网名#</span></li>
+        <li><i>8</i><span>#古风体验馆#</span></li>
+        <li><i>9</i><span>#古风专卖店#</span></li>
+        <li><i>10</i><span>#手机壁纸#</span></li>
       </ul>
     </div>
     <!-- 底部footer -->
@@ -210,7 +210,7 @@ export default {
       font-size: 0.27rem;
       display: flex;
       align-items: center;
-      margin-left: 10%;
+      margin-left: 6%;
       i{
         line-height: 0.5rem;
         display: block;

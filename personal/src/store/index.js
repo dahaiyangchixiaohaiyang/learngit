@@ -17,7 +17,10 @@ export default new Vuex.Store({
     loginOk(state,newName){
       state.islogin = true;
       state.username = newName;
-    }
+    },
+    loginonOK(state,newLogin){
+      state.islogin = false;
+    },
   },
   actions: {
   },

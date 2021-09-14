@@ -4,7 +4,7 @@
     <div class="faxianbar">
       <div></div>
       <div>我的</div>
-      <div><i class="jinsom-icon jinsom-shezhi"></i></div>
+      <div @click="users()"><i class="jinsom-icon jinsom-shezhi" ></i></div>
     </div>
     <!-- 个人信息 -->
       <div class="users">
@@ -14,7 +14,7 @@
         <div><img src="img/userimg/50.png" alt="" /></div>
       </div>
       <div class="userRight">
-        <p>大海洋吃小海洋</p>
+        <p>{{$store.state.username}}</p>
         <p class="userId">用户ID: 10940</p>
       </div>
         <i class="jinsom-icon jinsom-arrow-right"></i>
@@ -151,7 +151,11 @@ export default {
        console.log(this.visible2.visible)
        this.noScroll()
       },
+      users(){
+    this.$router.push("/users");
   }
+  },
+  
 }
 </script>
 

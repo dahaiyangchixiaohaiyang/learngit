@@ -234,6 +234,7 @@ export default {
   margin-bottom: 0.85rem;
   text-align: center;
   color: #888;
+  background-color: #ffffff;
   i{
     margin: 0 auto;
     font-size: 0.6rem;
@@ -464,5 +465,8 @@ export default {
 }
 .van-icon-arrow::before{
   content: '' !important;
+}
+.van-toast {
+  touch-action: pan-y;
 }
 </style>

@@ -6,6 +6,7 @@ import Login from "../views/login.vue"
 import Detail from "../views/Detail"
 import Faxian from "../views/Faxian.vue"
 import User from "../views/User.vue"
+import Users from "../views/Users.vue"
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,10 @@ const routes = [
   {
     path: '/user',
     component: User
+  },
+  {
+    path: '/users',
+    component: Users
   },
   {
     path: '/about',
