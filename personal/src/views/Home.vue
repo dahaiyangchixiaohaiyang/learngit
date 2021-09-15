@@ -264,20 +264,28 @@ export default {
     margin-left: 1vw;
     display: flex;
     img{ 
-      width: 10vw;
-      height: 10vw;
+      
+      width: 0.7rem;
+      height: 0.7rem;
       border-radius: 100%;
     }
     div{
-      height: 10vw;
+      height: 0.7rem;
+      width: 2rem;
+      position: relative;
       h1{
+      position: absolute;
+      top: 0;
       font-weight: 400;
       margin-left: 3vw;
       font-size: 3.8vw;
       color: #333;
+      text-align: center;
     }
     p{
-      margin-top: 1vw;
+      position: absolute;
+      bottom: 0;
+      text-align: center;
       margin-left: 3vw;
       font-size: 3vw;
       color: #8e8e93;
@@ -425,6 +433,7 @@ export default {
 .jinsom-fabu:before { content: "\e612"; font-size: 11vw;color: #dd565f;font-size: 0.85rem;}
 
 .footer{
+  touch-action: pan-y;
   height: 0.85rem !important;
   .jinsom-icon {
     font-size: 0.4rem;
@@ -468,5 +477,11 @@ export default {
 }
 .van-toast {
   touch-action: pan-y;
+}
+.van-image-preview__swipe-item{
+  touch-action: pan-y;
+}
+.van-image-preview__index{
+  font-size: 0.26rem !important;
 }
 </style>

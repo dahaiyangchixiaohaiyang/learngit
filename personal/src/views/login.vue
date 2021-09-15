@@ -8,7 +8,8 @@
       <img src="img/loginimg/7c2c60506876716ccf0e706db13d4511.png" alt="" />
     </div>
     <h1>携手让汉服成为一种流行的生活方式</h1>
-    <div class="box">
+    <!-- 登陆框 -->
+    <div class="box" v-if="">
       <li><span>密码登陆</span><span>短信登陆</span></li>
       <li>
         <van-icon name="contact" />
@@ -21,6 +22,20 @@
       <li><a href="javascript:" @click="loginbtn">登陆</a></li>
       <li><a href="javascript:">注册</a></li>
     </div>
+    <!-- 注册框 -->
+    <!-- <div class="box">
+      <li><span>手机注册</span><span>邮箱注册</span></li>
+      <li>
+        <van-icon name="contact" />
+        <input type="text" placeholder="手机/邮箱/用户名"  />
+      </li>
+      <li>
+        <van-icon name="closed-eye" />
+        <input type="password" placeholder="请输入密码"  />
+      </li>
+      <li><a href="javascript:">注册</a></li>
+      <li><a href="javascript:">登陆</a></li>
+    </div> -->
     <ul class="uls">
       <li>
         <i class="jinsom-icon jinsom-qq"></i>
