@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     visible:false,
     islogin:sessionStorage.getItem('islogin'),  //保存是否已登陆
-    username:sessionStorage.getItem('name')    //保存当前登陆用户名
+    userName:sessionStorage.getItem('name'),    //保存当前登陆用户名
+    userImg:sessionStorage.getItem('imgs')      //保存当前登录用户头像
   },
   mutations: {
     login(state,newvis){
@@ -16,10 +17,12 @@ export default new Vuex.Store({
     // 声明一个方法用于登陆成功后修改用户共享数据
     loginOk(state,newName){
       state.islogin = true;
-      state.username = newName;
+      state.userName = newName.name;
+      state.userImg=newName.img
     },
     loginonOK(state,newLogin){
-      state.islogin = false;
+      state.islogin = newLogin.noLogin;
+      state.userImg=newLogin.img
     },
   },
   actions: {

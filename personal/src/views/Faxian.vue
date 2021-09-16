@@ -84,7 +84,7 @@ export default {
   },
   methods:{
     btna(islogin){
-        if(islogin==true){
+        if(islogin==true || islogin=='true'){
           this.$router.push('/user')
         }else{
        this.visible2.visible=true

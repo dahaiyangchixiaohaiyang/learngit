@@ -4,9 +4,12 @@ create database hanfu charset=utf8;
 use hanfu;
 create table bly(
   admins varchar(32),
-  mima varchar(32)
+  mima varchar(32),
+  userimg varchar(64),
+  userid int
 );
-insert into bly values('大海洋吃小海洋','wobushi213R');
+insert into bly values('大海洋吃小海洋','wobushi213R','img/userimg/50.png','10940');
+insert into bly values('别露洋','wobushi213R','img/userimg/27.png','10940');
 create table other2(
   lid int primary key AUTO_INCREMENT,
   title varchar(16),

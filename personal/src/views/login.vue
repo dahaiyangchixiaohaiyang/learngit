@@ -9,7 +9,7 @@
     </div>
     <h1>携手让汉服成为一种流行的生活方式</h1>
     <!-- 登陆框 -->
-    <div class="box" v-if="">
+    <div class="box" v-show="box1">
       <li><span>密码登陆</span><span>短信登陆</span></li>
       <li>
         <van-icon name="contact" />
@@ -20,10 +20,10 @@
         <input type="password" placeholder="请输入密码" v-model="pwd" />
       </li>
       <li><a href="javascript:" @click="loginbtn">登陆</a></li>
-      <li><a href="javascript:">注册</a></li>
+      <li><a href="javascript:" @click="zhuceShow">注册</a></li>
     </div>
     <!-- 注册框 -->
-    <!-- <div class="box">
+    <div class="box" v-show="box2">
       <li><span>手机注册</span><span>邮箱注册</span></li>
       <li>
         <van-icon name="contact" />
@@ -33,9 +33,19 @@
         <van-icon name="closed-eye" />
         <input type="password" placeholder="请输入密码"  />
       </li>
-      <li><a href="javascript:">注册</a></li>
-      <li><a href="javascript:">登陆</a></li>
-    </div> -->
+      <li is-link @click="showPopup"><a href="javascript:">注册</a></li>
+      <li><a href="javascript:" @click="loginShow">登陆</a></li>
+    </div>
+
+    <!-- 弹出验证码 -->
+    <van-popup v-model="show" :style="{height:'20%'}" :overlay-style="{ backgroundColor: 'rgba(0,0,0,0.1)' }">
+      <div class="yanzheng">
+      <div class="yanzhengma">我是验证码</div>
+      <input type="text" placeholder="输入验证码">
+      </div>
+    </van-popup>
+
+    <!-- 底部logo -->
     <ul class="uls">
       <li>
         <i class="jinsom-icon jinsom-qq"></i>
@@ -64,9 +74,24 @@ export default {
       active: "1",
       name: "",
       pwd: "",
+      box1:true,
+      box2:false,
+      imgs:'',
+      show:false
     };
   },
   methods: {
+    showPopup(){
+      this.show=true
+    },
+    zhuceShow(){
+      this.box1=false;
+      this.box2=true;
+    },
+    loginShow(){
+      this.box1=true;
+      this.box2=false
+    },
     btns() {
       this.visible2.visible = false;
       this.canScroll();
@@ -86,10 +111,14 @@ export default {
               position: "bottom",
               duration: "2000",
             });
-            this.$store.commit("loginOk", this.name);
+            this.imgs=res.data.result.userimg
+            this.$store.commit("loginOk", {name:this.name,img:this.imgs});
             // 不仅需要存在vuex中,还需要存入sessionStorage
             window.sessionStorage.setItem('islogin',true);
             window.sessionStorage.setItem('name',this.name);
+            window.sessionStorage.setItem('imgs',this.imgs);
+            console.log(this.imgs)
+            
             this.$router.push("/user");
             this.canScroll();
           } else {
@@ -106,6 +135,27 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.van-popup{
+  border-radius: 0.2rem;
+}
+.yanzheng{
+  width: 100%;
+  
+  .yanzhengma{
+    text-align: center;
+    font-size: 0.5rem;
+  }
+  input{
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    height: 0.5rem;
+    font-size: 0.3rem;
+    border: 0;
+
+  }
+
+}
 .login2 {
   margin-top: 0.5rem;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="nav">
-      <img src="img/mr100.jpg" alt="">
+      <img :src="userImg=='undefined' || userImg=='' ||userImg== null?src:userImg" alt="">
       <input type="text" placeholder="搜索你感兴趣的内容">
       <i class="jinsom-icon jinsom-qiandao2"></i>
     </div>
@@ -103,6 +103,7 @@ import axios from "axios";
 import login from './login.vue';
 import detail from './Detail.vue';
 Toast.setDefaultOptions({ duration: 500 });
+import { mapState } from 'vuex';
 export default {
   components: { login ,detail},
   name:"ImagePreview",
@@ -121,9 +122,11 @@ export default {
       hide:'hide',
       visibles2:{visible:false},
       lid: 50,
-      detail:''
+      detail:'',
+      src:'img/mr100.jpg'
     }
   },
+  computed:mapState(['userImg','userName']),
   methods:{
     // 鼠标点击传参给详情页
     showPopup2(a){
@@ -191,7 +194,8 @@ export default {
       
     },
       btna(islogin){
-        if(islogin==true){
+        console.log(islogin)
+        if(islogin==true || islogin=='true'){
           this.$router.push('/user')
         }else{
        this.visible2.visible=true
@@ -203,7 +207,8 @@ export default {
     
   
   },
-  mounted(){     
+  mounted(){    
+    console.log(this.userImg)
       axios.get(`/fenye?cid=${this.activeName}&page=${this.fenye}`).then((result)=>{
       console.log(result.data.results)
       this.data=result.data.results 

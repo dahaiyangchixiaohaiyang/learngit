@@ -7,8 +7,8 @@
     </div>
     <!-- 个人信息展示页 -->
     <div class="myUser">
-      <li><span>头像</span><span><img src="img/userimg/50.png" alt=""></span><span><i class="jinsom-icon jinsom-huaban"></i></span></li>
-      <li><span>昵称</span><span>大海洋吃小海洋</span><span><i class="jinsom-icon jinsom-huaban"></i></span></li>
+      <li><span>头像</span><span><img :src="userImg" alt=""></span><span><i class="jinsom-icon jinsom-huaban"></i></span></li>
+      <li><span>昵称</span><span>{{userName}}</span><span><i class="jinsom-icon jinsom-huaban"></i></span></li>
       <li><span>二维码</span><span class="jinsom-icon jinsom-erweima" style="font-size:0.5rem"></span><span><i class="jinsom-icon jinsom-huaban"></i></span></li>
       <li><span>更多</span><span></span><span><i class="jinsom-icon jinsom-huaban"></i></span></li>
       <li><span>手机号</span><span>15508930766</span><span><i class="jinsom-icon jinsom-huaban"></i></span></li>
@@ -26,11 +26,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
+  computed:mapState(['userImg','userName']),
   methods:{
     onlogin(){
-      this.$store.commit("loginonOK",false);
+      this.$store.commit("loginonOK",{noLogin:false,img:undefined});
       window.sessionStorage.setItem('islogin',false);
+      window.sessionStorage.setItem('imgs',undefined);
       this.$router.push("/");
     },
     bti(){

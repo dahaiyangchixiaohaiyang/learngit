@@ -11,10 +11,10 @@
       
     <div class="user">
       <div class="userXinxi">
-        <div><img src="img/userimg/50.png" alt="" /></div>
+        <div><img :src="userImg" alt="" /></div>
       </div>
       <div class="userRight">
-        <p>{{$store.state.username}}</p>
+        <p>{{userName}}</p>
         <p class="userId">用户ID: 10940</p>
       </div>
         <i class="jinsom-icon jinsom-arrow-right"></i>
@@ -135,6 +135,7 @@
 </template>
 <script>
 import login from './login.vue';
+import { mapState } from 'vuex';
 export default {
   components: { login },
   data(){
@@ -145,6 +146,7 @@ export default {
       }
     }
   },
+  computed:mapState(['userImg','userName']),
   methods:{
     btna(){
        this.visible2.visible=true
