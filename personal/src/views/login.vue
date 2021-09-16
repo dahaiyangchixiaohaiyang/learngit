@@ -27,23 +27,23 @@
       <li><span>手机注册</span><span>邮箱注册</span></li>
       <li>
         <van-icon name="contact" />
-        <input type="text" placeholder="手机/邮箱/用户名"  />
+        <input type="text" placeholder="手机/邮箱/用户名" v-model="names"  />
       </li>
       <li>
         <van-icon name="closed-eye" />
-        <input type="password" placeholder="请输入密码"  />
+        <input type="password" placeholder="请输入密码" v-model="pwds" />
       </li>
-      <li is-link @click="showPopup"><a href="javascript:">注册</a></li>
+      <li><a href="javascript:" @click="insert">注册</a></li>
       <li><a href="javascript:" @click="loginShow">登陆</a></li>
     </div>
 
     <!-- 弹出验证码 -->
-    <van-popup v-model="show" :style="{height:'20%'}" :overlay-style="{ backgroundColor: 'rgba(0,0,0,0.1)' }">
+    <!-- <van-popup v-model="show" :style="{height:'20%'}" :overlay-style="{ backgroundColor: 'rgba(0,0,0,0.1)' }">
       <div class="yanzheng">
       <div class="yanzhengma">我是验证码</div>
       <input type="text" placeholder="输入验证码">
       </div>
-    </van-popup>
+    </van-popup> -->
 
     <!-- 底部logo -->
     <ul class="uls">
@@ -77,13 +77,15 @@ export default {
       box1:true,
       box2:false,
       imgs:'',
-      show:false
+      show:false,
+      names:'',
+      pwds:''
     };
   },
   methods: {
-    showPopup(){
-      this.show=true
-    },
+    // showPopup(){
+    //   this.show=true
+    // },
     zhuceShow(){
       this.box1=false;
       this.box2=true;
@@ -99,10 +101,32 @@ export default {
     onSubmit(values) {
       console.log("submit", values);
     },
+    insert(){
+      let num = Math.floor(Math.random()*10)+1;
+      let uimg =`img/userimg/${num}.png`;
+      let uid =Math.floor(Math.random()*10000)+1
+      axios.post('/register',`username=${this.names}&password=${this.pwds}&userimg=${uimg}&userid=${uid}`).then((res)=>{
+        console.log(res.data)
+        if (res.data.code == 200) {
+            this.$toast({
+              message: "注册成功",
+              position: "bottom",
+              duration: "2000",
+            });
+            this.box1=true;
+            this.box2=false
+        }else if(res.data.code==201){
+                    this.$toast({
+                        message:'注册失败,用户名已存在',
+                        position:'bottom',
+                        duration:3000
+                    })
+                }
+      })
+    },
     loginbtn() {
       console.log(this.name, this.pwd);
-      axios
-        .post("/login", `username=${this.name}&password=${this.pwd}`)
+      axios.post("/login", `username=${this.name}&password=${this.pwd}`)
         .then((res) => {
           console.log(res);
           if (res.data.code == 200) {

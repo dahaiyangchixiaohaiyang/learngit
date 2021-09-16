@@ -185,15 +185,18 @@ server.post('/register', (req, res) => {
   // 获取用户名和密码信息
   let username = req.body.username;
   let password = req.body.password;
+  let userimgs = req.body.userimg;
+  let userids = req.body.userid;
+  console.log(req.body)
   //以username为条件进行查找操作，以保证用户名的唯一性
-  let sql = 'SELECT COUNT(id) AS count FROM xzqa_author WHERE username=?';
+  let sql = 'SELECT COUNT(id) AS count FROM bly WHERE admins=?';
   pool.query(sql, [username], (error, results) => {
     if (error) throw error;
     let count = results[0].count;
     if (count == 0) {
       // 将用户的相关信息插入到数据表
-      sql = 'INSERT xzqa_author(username,password) VALUES(?,MD5(?))';
-      pool.query(sql, [username, password], (error, results) => {
+      sql = 'INSERT bly(admins,mima,userimg,userid) VALUES(?,MD5(?),?,?)';
+      pool.query(sql, [username, password,userimgs,userids], (error, results) => {
         if (error) throw error;
         res.send({ message: 'ok', code: 200 });
       })
@@ -210,7 +213,7 @@ server.post('/login', (req, res) => {
   let password = req.body.password;
   console.log(username,password)
   // SQL语句
-  let sql = 'SELECT * FROM bly WHERE admins=? AND mima=?';
+  let sql = 'SELECT * FROM bly WHERE admins=? AND mima=MD5(?)';
   pool.query(sql, [username, password], (error, results) => {
     if (error) throw error;
     if(results.length == 0){ //登录失败
@@ -237,6 +240,30 @@ server.post('/login', (req, res) => {
 //     }
 //   });
 
+// });
+
+//用户注册接口
+// server.post('/register', (req, res) => {
+//   //console.log(md5('12345678'));
+//   // 获取用户名和密码信息
+//   let username = req.body.username;
+//   let password = req.body.password;
+//   //以username为条件进行查找操作，以保证用户名的唯一性
+//   let sql = 'SELECT COUNT(id) AS count FROM xzqa_author WHERE username=?';
+//   pool.query(sql, [username], (error, results) => {
+//     if (error) throw error;
+//     let count = results[0].count;
+//     if (count == 0) {
+//       // 将用户的相关信息插入到数据表
+//       sql = 'INSERT xzqa_author(username,password) VALUES(?,MD5(?))';
+//       pool.query(sql, [username, password], (error, results) => {
+//         if (error) throw error;
+//         res.send({ message: 'ok', code: 200 });
+//       })
+//     } else {
+//       res.send({ message: 'user exists', code: 201 });
+//     }
+//   });
 // });
 
 // 指定服务器对象监听的端口号
