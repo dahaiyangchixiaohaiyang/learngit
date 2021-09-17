@@ -36,6 +36,38 @@ const cors = require('cors');
 server.use(cors({
   origin: ['http://localhost:8080', 'http://127.0.0.1:8080']
 }));
+// 头像上传
+//配置multer中间件
+const multer = require('multer')
+obj = multer.diskStorage({
+  destination : function(req, file, cb){ //指定目录
+    cb(null, 'upload')
+  },
+  filename : function (req, file, cb){ // 指定文件名
+    // console.log(uuid.v1())
+    // console.log(uuid.v4())
+    let name = file.originalname
+    // name:  abcd.jpg    xxxdfdd.zip
+    let ext = name.substr(name.lastIndexOf('.'))
+    cb(null, uuid.v4() + ext)
+  }
+})
+const uploadTools = multer({
+  storage : obj
+})
+const uuid = require('uuid')
+
+// 静态资源托管upload目录
+server.use(express.static('upload'))
+
+//接收请求头像
+server.post('/upload',
+  uploadTools.array('uploadFile'), (req, res)=>{
+    console.log(req.files)
+    console.log(req.files[0].filename)
+    res.send({ message: 'ok', code: 200, results: req.files[0].filename })
+    // 将图片的路径保存到数据库
+})
 
 // 编写一个接口处理/getcode请求,返回svg图片
 // 应用session中间件
@@ -310,6 +342,31 @@ server.post('/login', (req, res) => {
 //   });
 // });
 
+
+// 用户修改头像接口（put /edit）
+// 地址： /users/edit
+server.post('/edit', function (req, res, next) {
+  //接收参数
+  var obj = req.body;
+  console.log(obj);
+  pool.query(`update bly set userimg="${obj.userimgs}" where admins="${obj.name}"`, function (err, data) {
+    if (err) {
+      next(err);
+      return;
+    }
+    if (data.affectedRows > 0) {
+      res.send({
+        code: 1,
+        msg: '修改成功'
+      })
+    } else {
+      res.send({
+        code: 0,
+        msg: '修改失败'
+      })
+    }
+  })
+})
 // 指定服务器对象监听的端口号
 server.listen(3000, () => {
   console.log('server is running...');

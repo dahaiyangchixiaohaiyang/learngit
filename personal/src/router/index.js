@@ -8,6 +8,7 @@ import Faxian from "../views/Faxian.vue"
 import User from "../views/User.vue"
 import Users from "../views/Users.vue"
 import Cs from "../views/test/Cs.vue"
+import Userimg from "../views/test/Userimg"
 
 Vue.use(VueRouter)
 
@@ -44,6 +45,10 @@ const routes = [
   {
     path: '/cs',
     component: Cs
+  },
+  {
+    path: '/userimg',
+    component: Userimg
   },
   {
     path: '/about',

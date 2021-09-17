@@ -2,6 +2,11 @@ set names utf8;
 drop database if exists hanfu;
 create database hanfu charset=utf8;
 use hanfu;
+create table bly2(
+  id int primary key AUTO_INCREMENT,
+  imgs varchar(128)
+);
+insert into bly2 values(null,'img/userimg/50.png');
 create table bly(
   id int primary key AUTO_INCREMENT,
   admins varchar(32),
