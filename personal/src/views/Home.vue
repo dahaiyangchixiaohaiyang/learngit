@@ -201,6 +201,7 @@ export default {
        this.visible2.visible=true
        console.log(this.visible2.visible)
        this.noScroll()
+       this.active=0
        }
       },
       

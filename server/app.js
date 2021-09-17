@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 // 加载MD5模块
 const md5 = require('md5');
 
+
 // 创建MySQL连接池
 const pool = mysql.createPool({
   host: '127.0.0.1',   //MySQL服务器地址
@@ -28,7 +29,6 @@ server.use(bodyParser.urlencoded({
   extended: false
 }));
 
-
 // 加载CORS模块
 const cors = require('cors');
 
@@ -37,6 +37,50 @@ server.use(cors({
   origin: ['http://localhost:8080', 'http://127.0.0.1:8080']
 }));
 
+// 编写一个接口处理/getcode请求,返回svg图片
+// 应用session中间件
+const session = require('express-session')
+server.use(session({
+  secret:'mykey',
+  secret:'12345',
+  cookie: { secure: false},
+  resave:false,
+  saveUninitialized:true
+}))
+
+// 验证码svg图片模块
+const svgCap = require('svg-captcha')
+var answers = ''
+server.get('/getcode',(req,res)=>{
+  
+  // 生成验证码
+  let cap = svgCap.create({
+    noise:5
+  });
+  console.log('生成的验证码是: '+cap.text)
+  // 将正确答案存入session
+  req.session.answer = cap.text;
+  answers = cap.text
+  // console.log(req.session.answer)
+
+  res.type('svg');
+  res.send(cap.data);  //返回图片
+})
+
+// 注册验证码接口
+server.post('/getlogin',(req,res)=>{
+  // 获取请求参数
+  let ucode = req.body.code;
+  console.log('用户输入的验证码为：'+ucode)
+  console.log(req.session.answer)
+  let answer = req.session.answer
+  // console.log('正确答案是:'+answer)
+  if(ucode==answers){
+  res.send('验证成功')
+  }else{
+  res.send('验证失败')
+}
+})
 // 获取所有文章分类的接口
 server.get('/category', (req, res) => {
   // SQL语句以获取文章分类表的数据

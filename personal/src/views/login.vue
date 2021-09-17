@@ -13,7 +13,7 @@
       <li><span>密码登陆</span><span>短信登陆</span></li>
       <li>
         <van-icon name="contact" />
-        <input type="text" placeholder="手机/邮箱/用户名" v-model="name" />
+        <input type="text" placeholder="请输入用户名" v-model="name" />
       </li>
       <li>
         <van-icon name="closed-eye" />
@@ -27,23 +27,35 @@
       <li><span>手机注册</span><span>邮箱注册</span></li>
       <li>
         <van-icon name="contact" />
-        <input type="text" placeholder="手机/邮箱/用户名" v-model="names"  />
+        <input type="text" placeholder="请输入用户名" v-model="names" />
       </li>
       <li>
         <van-icon name="closed-eye" />
         <input type="password" placeholder="请输入密码" v-model="pwds" />
       </li>
-      <li><a href="javascript:" @click="insert">注册</a></li>
+      <li is-link @click="showPopup"><a href="javascript:">注册</a></li>
       <li><a href="javascript:" @click="loginShow">登陆</a></li>
     </div>
-
+    <!-- @click="insert"  -->
     <!-- 弹出验证码 -->
-    <!-- <van-popup v-model="show" :style="{height:'20%'}" :overlay-style="{ backgroundColor: 'rgba(0,0,0,0.1)' }">
+    <van-popup
+      v-model="show"
+      :style="{ height: '20%' }"
+      :overlay-style="{ backgroundColor: 'rgba(0,0,0,0.1)' }"
+    >
       <div class="yanzheng">
-      <div class="yanzhengma">我是验证码</div>
-      <input type="text" placeholder="输入验证码">
+        <div class="yanzhengma">
+          <img
+            ref="img_codeRef"
+            src="http://127.0.0.1:3000/getcode"
+            alt=""
+            @click="newImg"
+          />
+        </div>
+        <input type="text" placeholder="输入验证码" v-model="isokInp" />
+        <a href="javascript:" @click="isOk">确定</a>
       </div>
-    </van-popup> -->
+    </van-popup>
 
     <!-- 底部logo -->
     <ul class="uls">
@@ -74,25 +86,54 @@ export default {
       active: "1",
       name: "",
       pwd: "",
-      box1:true,
-      box2:false,
-      imgs:'',
-      show:false,
-      names:'',
-      pwds:''
+      box1: true,
+      box2: false,
+      imgs: "",
+      show: false,
+      names: "",
+      pwds: "",
+      isokInp: "",
     };
   },
   methods: {
-    // showPopup(){
-    //   this.show=true
-    // },
-    zhuceShow(){
-      this.box1=false;
-      this.box2=true;
+    showPopup() {
+      let reg = /^[\u4E00-\u9FA5\w]{1,6}$/;
+      let pwdreg = /^(\w|\d){6,16}$/;
+      if(reg.test(this.names) && pwdreg.test(this.pwds)){
+        console.log(reg.test(this.names))
+      this.show = true;
+      }else if(reg.test(this.names) && !pwdreg.test(this.pwds)){
+        this.$toast({
+                  message: "密码6-16位字母数字内",
+                  position: "bottom",
+                  duration: "2000",
+                });
+      }else if(!reg.test(this.names) && pwdreg.test(this.pwds)){
+        this.$toast({
+                  message: "昵称名6位内",
+                  position: "bottom",
+                  duration: "2000",
+                });
+      }else{
+        this.$toast({
+                  message: "昵称名6位内",
+                  position: "bottom",
+                  duration: "2000",
+                });
+      }
+     
     },
-    loginShow(){
-      this.box1=true;
-      this.box2=false
+    zhuceShow() {
+      this.box1 = false;
+      this.box2 = true;
+      this.name = '';
+      this.pwd = ''
+    },
+    loginShow() {
+      this.box1 = true;
+      this.box2 = false;
+      this.names = ''
+      this.pwds = ''
     },
     btns() {
       this.visible2.visible = false;
@@ -101,32 +142,87 @@ export default {
     onSubmit(values) {
       console.log("submit", values);
     },
-    insert(){
-      let num = Math.floor(Math.random()*10)+1;
-      let uimg =`img/userimg/${num}.png`;
-      let uid =Math.floor(Math.random()*10000)+1
-      axios.post('/register',`username=${this.names}&password=${this.pwds}&userimg=${uimg}&userid=${uid}`).then((res)=>{
-        console.log(res.data)
-        if (res.data.code == 200) {
-            this.$toast({
-              message: "注册成功",
-              position: "bottom",
-              duration: "2000",
+    isOk() {
+      console.log(this.isokInp)
+      if(this.isokInp !=''){
+      axios.post("/getlogin", `code=${this.isokInp}`).then((res) => {
+        console.log(res.data);
+        if ((res.data) == "验证成功") {
+          let num = Math.floor(Math.random() * 20) + 1;
+          let uimg = `img/userimg/${num}.png`;
+          let uid = Math.floor(Math.random() * 10000) + 1;
+          axios
+            .post(
+              "/register",
+              `username=${this.names}&password=${this.pwds}&userimg=${uimg}&userid=${uid}`
+            )
+            .then((res) => {
+              console.log(res.data);
+              if (res.data.code == 200) {
+                this.$toast({
+                  message: "注册成功",
+                  position: "bottom",
+                  duration: "2000",
+                });
+                this.box1 = true;
+                this.box2 = false;
+              } else if (res.data.code == 201) {
+                this.$toast({
+                  message: "注册失败,用户名已存在",
+                  position: "bottom",
+                  duration: 3000,
+                });
+                this.$refs.img_codeRef.src =
+        "http://127.0.0.1:3000/getcode?time" + new Date();
+        this.isokInp=''
+              }
             });
-            this.box1=true;
-            this.box2=false
-        }else if(res.data.code==201){
-                    this.$toast({
-                        message:'注册失败,用户名已存在',
-                        position:'bottom',
-                        duration:3000
-                    })
-                }
-      })
+            this.show=false
+        }else{
+          this.$refs.img_codeRef.src =
+        "http://127.0.0.1:3000/getcode?time" + new Date();
+        this.isokInp=''
+        }
+      });
+      }else{
+        this.$toast({
+                  message: "请输入验证码",
+                  position: "bottom",
+                  duration: 3000,
+                });
+      }
     },
+    newImg() {
+      this.$refs.img_codeRef.src =
+        "http://127.0.0.1:3000/getcode?time" + new Date();
+    },
+    // insert(){
+    //   let num = Math.floor(Math.random()*20)+1;
+    //   let uimg =`img/userimg/${num}.png`;
+    //   let uid =Math.floor(Math.random()*10000)+1
+    //   axios.post('/register',`username=${this.names}&password=${this.pwds}&userimg=${uimg}&userid=${uid}`).then((res)=>{
+    //     console.log(res.data)
+    //     if (res.data.code == 200) {
+    //         this.$toast({
+    //           message: "注册成功",
+    //           position: "bottom",
+    //           duration: "2000",
+    //         });
+    //         this.box1=true;
+    //         this.box2=false
+    //     }else if(res.data.code==201){
+    //                 this.$toast({
+    //                     message:'注册失败,用户名已存在',
+    //                     position:'bottom',
+    //                     duration:3000
+    //                 })
+    //             }
+    //   })
+    // },
     loginbtn() {
       console.log(this.name, this.pwd);
-      axios.post("/login", `username=${this.name}&password=${this.pwd}`)
+      axios
+        .post("/login", `username=${this.name}&password=${this.pwd}`)
         .then((res) => {
           console.log(res);
           if (res.data.code == 200) {
@@ -135,14 +231,14 @@ export default {
               position: "bottom",
               duration: "2000",
             });
-            this.imgs=res.data.result.userimg
-            this.$store.commit("loginOk", {name:this.name,img:this.imgs});
+            this.imgs = res.data.result.userimg;
+            this.$store.commit("loginOk", { name: this.name, img: this.imgs });
             // 不仅需要存在vuex中,还需要存入sessionStorage
-            window.sessionStorage.setItem('islogin',true);
-            window.sessionStorage.setItem('name',this.name);
-            window.sessionStorage.setItem('imgs',this.imgs);
-            console.log(this.imgs)
-            
+            window.sessionStorage.setItem("islogin", true);
+            window.sessionStorage.setItem("name", this.name);
+            window.sessionStorage.setItem("imgs", this.imgs);
+            console.log(this.imgs);
+
             this.$router.push("/user");
             this.canScroll();
           } else {
@@ -159,26 +255,38 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.van-popup{
+.van-popup {
   border-radius: 0.2rem;
 }
-.yanzheng{
+.yanzheng {
   width: 100%;
-  
-  .yanzhengma{
+
+  .yanzhengma {
     text-align: center;
     font-size: 0.5rem;
+    img {
+      width: 100%;
+    }
   }
-  input{
+  input {
     display: block;
     margin: 0 auto;
     width: 50%;
     height: 0.5rem;
     font-size: 0.3rem;
     border: 0;
-
+    text-align: center;
   }
-
+  a {
+    width: 40%;
+    color: #fff;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 0.3rem;
+    background-color: #dd565f;
+    border-radius: 3px;
+  }
 }
 .login2 {
   margin-top: 0.5rem;
