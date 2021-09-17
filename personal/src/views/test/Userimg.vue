@@ -15,9 +15,10 @@
 import axios from "axios";
 import { mapState } from 'vuex';
 export default {
-    computed:mapState(['userImg','userName']),
+    computed:{...mapState(['userImg','userName'])},
     methods:{
         afterRead(file) {
+          console.log(this.userName)
       // 此时可以自行将文件上传至服务器
       console.log(file.file);
       let arr = [];
@@ -29,13 +30,13 @@ export default {
       }
       axios.post('http://localhost:3000/upload', formData).then(res=>{
           let imgss = `http://localhost:3000/${res.data.results}`
-          this.$store.commit("loginOk", { name: '别露洋头像2', img: imgss });
+          this.$store.commit("loginOk", { name: this.userName, img: imgss });
             // 不仅需要存在vuex中,还需要存入sessionStorage
             window.sessionStorage.setItem("islogin", true);
-            window.sessionStorage.setItem("name", '别露洋头像2');
+            window.sessionStorage.setItem("name", this.userName);
             window.sessionStorage.setItem("imgs", imgss);
           console.log(res.data.results)
-           axios.post('http://localhost:3000/edit',`name=别露洋头像2&userimgs=${imgss}`)
+           axios.post('http://localhost:3000/edit',`name=${this.userName}&userimgs=${imgss}`)
 
           .then( res=> {
            console.log(res);
