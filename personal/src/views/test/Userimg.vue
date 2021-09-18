@@ -7,14 +7,18 @@
     </div>
 
     
-    <van-uploader :after-read="afterRead" />
-    <img :src="userImg" alt="">
+    <van-uploader v-model="fileList" :after-read="afterRead" :max-count="1"/>
     </div>
 </template>
 <script>
 import axios from "axios";
 import { mapState } from 'vuex';
 export default {
+  data(){
+    return{
+      fileList:[]
+    }
+  },
     computed:{...mapState(['userImg','userName'])},
     methods:{
         afterRead(file) {
@@ -30,6 +34,7 @@ export default {
       }
       axios.post('http://localhost:3000/upload', formData).then(res=>{
           let imgss = `http://localhost:3000/${res.data.results}`
+          this.fileList = [{url:imgss}]
           this.$store.commit("loginOk", { name: this.userName, img: imgss });
             // 不仅需要存在vuex中,还需要存入sessionStorage
             window.sessionStorage.setItem("islogin", true);
@@ -85,11 +90,40 @@ export default {
   }
 }
 .van-uploader{
-    margin-top: 50%;
-    margin-left: 40%;
+  width: 3rem;
+  height: 3rem;
+  position: fixed;
+  top: 20%;
+  left: 30%;
+  
 }
-img{
-    display: block;
-    margin: 0 auto;
+
+
+</style>
+
+<style>
+.van-uploader__upload{
+  width: 100% !important;
+  height: 100% !important;
+  
+
 }
+.van-icon{
+  font-size: 2rem !important;
+}
+.van-uploader__preview-image{
+  
+  width: 2rem !important;
+  height: 2rem !important;
+}
+.van-icon-cross::before{
+  font-size: 0.5rem;
+  position: absolute;
+  top: 0.02rem;
+  right: 0.02rem;
+}
+.van-uploader__wrapper{
+ justify-content: center;
+}
+
 </style>
