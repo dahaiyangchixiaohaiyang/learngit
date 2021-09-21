@@ -7,56 +7,49 @@
     </div>
     <!-- 滚动导航 -->
     <div class="bar">
-    <van-tabs @click="onClick" :v-model="activeName">
+    <van-tabs @click="onClick" v-model="activeName">
   <van-tab v-for="(index,i) in title"  type="card" :title="index" :key="i" :name="index">
   </van-tab>
 </van-tabs>
 </div>
-<!-- 推荐话题 -->
-<div class="topic">
-  <i class="jinsom-icon jinsom-huo"></i><p>推荐话题</p>
-</div>
-
-<!-- 图片滑动 -->
-<div class="imgs">
-  <div>
-<a href="" v-for="(item,i) of imgs"  :key="i"><img :src="item.img" alt=""><span>{{item.title}}</span></a>
-
-  </div>
-</div>
-<!-- 内容区域 -->
-<div  v-infinite-scroll="loadmore"
+<!-- 视频区域 -->
+<div class="video" 
+v-infinite-scroll="loadmore"
         infinite-scroll-distance="70"
         infinite-scroll-disabled="busy"
         :infinite-scroll-immediate-check="true">
-<div class="card" v-for="(item,i) of data" :key="i">
-<div class="userimg">
-  <img :src="item.headjmg" alt="">
-  <div>
-    <h1>{{item.nid}}</h1>
-    <p>{{item.ctime}}</p>
+  <div class="left">
+  <div class="videoCard" v-for="(item,i) in data" :key="i">
+    <div class="videoImg">
+      <img :src="item.img" alt="">
+      <span>视频</span>
+    </div>
+    <p>{{item.title}}</p>
+    <div class="videoUser">
+      <img :src="item.userimg" alt="">
+      <span>{{item.username}}</span>
+      <span class="span2"><i class="jinsom-icon jinsom-xihuan2"></i>{{item.userAi}}</span>
+    </div>
+  </div>
+  </div>
+  <div class="right">
+  <div class="videoCard" v-for="(item,i) in newData" :key="i">
+    <div class="videoImg">
+      <img :src="item.img" alt="">
+      <span>视频</span>
+    </div>
+    <p>{{item.title}}</p>
+    <div class="videoUser">
+      <img :src="item.userimg" alt="">
+      <span>{{item.username}}</span>
+      <span class="span2"><i class="jinsom-icon jinsom-xihuan2"></i>{{item.userAi}}</span>
+    </div>
+  </div>
   </div>
 </div>
-<!-- <router-link :to="`/detail?id=${item.lid}`"> -->
-<!-- <router-link> -->
-  <van-cell is-link @click="showPopup2(item.lid)" ><h2>{{item.content}}</h2></van-cell>
 
-<!-- </router-link> -->
-<div class="userimgs">
-<div  v-for="(item,index) in lisData[i].imgs.split(',')" v-show="item" :key="index">
-    <img v-if="item" class="img" :src="item" alt="" @click="getImg(lisData,index,i)">
-  </div>
-  </div>
-<div class="footcard">
-  <div>
-  <i class="jinsom-icon jinsom-xihuan2"><span>0</span></i>
-  <i class="jinsom-icon jinsom-pinglun2"><span>0</span></i>
-  <i class="jinsom-icon jinsom-liulan1"><span>0</span></i>
-  <i class="jinsom-icon jinsom-gengduo2"></i>
-  </div>
-</div>
-</div>
-</div>
+
+
 
 <!-- 底部没数据后的提示 -->
 <div class="foot" :class="hide" >
@@ -117,10 +110,11 @@ export default {
   data(){
     return {
       title:["全部","动态","文章","视频","音乐","帖子","关注","推荐"],
-      activeName:'全部',
+      activeName:'视频',
       active:0,
       show:false,
       data:[],
+      newData:'',
       visible2:{visible:false},
       imgs:[],
       lisData :[],
@@ -161,22 +155,76 @@ export default {
 
     },
     onClick(name) {
-      if(name=='视频'){
-        this.$router.push('/video')
+      if(name=="全部"){
+        this.$router.push('/')
       }else{
-      this.hide='hide'
       this.busy=false;
+      this.hide='hide'
       console.log(name)
       window.scrollTo(0, 0);
       this.fenye=1
-      axios.get(`/fenye?cid=${name}&page=1`).then((result)=>{
+      axios.get(`/video?cid=${name}&page=1`).then((result)=>{
       console.log(result.data.results)
       this.data=result.data.results 
-      var arr =result.data.results
-      this.lisData=arr
+      let [...data] = this.data
+    let [...newData] = [[],[],[]]
+    data.forEach((el,i)=>{
+      switch(i%2){
+        case 0 : newData[0].push(el)
+        break
+        case 1 : newData[1].push(el)
+        break
+      }
+    })
+    this.data=newData[0]
+    this.newData  = newData[1]
+    console.log(this.newData,this.data)
     })
     }
     },
+    
+    // 监听触底事件
+    loadmore(){
+      console.log('我触发了video页面的监听')
+      this.busy=true;  //防止重复调用loadmore
+      // let cid = this.navactive
+      this.fenye++; 
+      console.log(`${this.activeName}:${this.fenye}`)
+      axios.get(`/video?cid=${this.activeName}&page=${this.fenye}`).then((res)=>{
+        console.log(res.data.results)
+        // this.data.push(...res.data.results)
+        this.busy=false;
+        let [...data] = res.data.results
+        let [...newData] = [[],[],[]]
+        data.forEach((el,i)=>{
+        switch(i%2){
+        case 0 : newData[0].push(el)
+        break
+        case 1 : newData[1].push(el)
+        break
+        // case 2 : newData[2].push(el)
+        // break
+      }
+    })
+    this.data.push(...newData[0])
+    this.newData.push(...newData[1])
+    console.log(newData[0],newData[1])
+        if(res.data.results.length==0){
+          console.log(`到底了`)
+          this.hide='appear'
+          this.busy=true;
+        }else{
+          this.hide='hide'
+          Toast.loading({
+      message: '加载中...',
+      forbidClick: false,
+      loadingType: 'spinner',
+      
+      });
+        }
+      })
+    },
+    
     showPopup(event) {
       console.log(event)
       this.show = true;
@@ -194,34 +242,6 @@ export default {
       })
       
     },
-    
-    // 监听触底事件
-    loadmore(){
-      console.log('我触发了home页面的监听')
-      this.busy=true;  //防止重复调用loadmore
-      // let cid = this.navactive
-      this.fenye++;     
-      console.log(`${this.activeName}:${this.fenye}`)
-      axios.get(`/fenye?cid=${this.activeName}&page=${this.fenye}`).then((res)=>{
-        console.log(res.data.results)
-        this.lisData.push(...res.data.results)
-        this.busy=false;
-        if(res.data.results.length==0){
-          console.log(`到底了`)
-          this.hide='appear'
-          this.busy=true;
-        }else{
-          this.hide='hide'
-          Toast.loading({
-      message: '加载中...',
-      forbidClick: false,
-      loadingType: 'spinner',
-      
-      });
-        }
-      })
-    },
-    
       btna(islogin){
         console.log(islogin)
         if(islogin==true || islogin=='true'){
@@ -238,18 +258,25 @@ export default {
   
   },
   mounted(){
-      this.busy=true; 
-      this.fenye=1    
-      axios.get(`/fenye?cid=${this.activeName}&page=${this.fenye}`).then((result)=>{
+      this.busy=true;  
+      this.fenye=1
+      axios.get(`/video?cid=视频&page=1`).then((result)=>{
       this.busy=false
       console.log(result.data.results)
       this.data=result.data.results 
-      var arr =result.data.results
-      this.lisData=arr
+      let [...data] = this.data
+    let [...newData] = [[],[],[]]
+    data.forEach((el,i)=>{
+      switch(i%2){
+        case 0 : newData[0].push(el)
+        break
+        case 1 : newData[1].push(el)
+        break
+      }
     })
-    axios.get('/other2').then((result)=>{
-      console.log(result.data.results)
-      this.imgs=result.data.results
+    this.data=newData[0]
+    this.newData  = newData[1]
+    console.log(this.newData,this.data)
     })
   }
 }
@@ -260,6 +287,136 @@ export default {
 *{
   padding: 0;
   margin: 0;
+}
+.video{
+  touch-action: pan-y;
+  width: 96%;
+  margin: 0 auto;
+  margin-top: 1.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #fff;
+  .left{
+    width: 49%;
+    .videoCard{
+    width: 100%;
+    margin-top: 0.2rem;
+    .videoImg{
+      width: 100%;
+      position: relative;
+      border-radius: 0.08rem;
+      overflow: hidden;
+      img{
+        display: block;
+        width: 100%;
+      }
+      span{
+      font-size: 0.3rem;
+      color: #fff;
+      background-color: rgb(0 0 0 / 50%);
+      position: absolute;
+      top: 2vw;
+      right: 2vw;
+      font-size: 3vw;
+      padding: 0 1vw;
+      border-radius: 1vw;
+    }
+    }
+    p{
+      font-size: 0.24rem;
+      margin-top: 0.1rem;
+    }
+    .videoUser{
+      display: flex;
+      margin-top: 0.1rem;
+      height: 0.39rem;
+      width: 100%;
+      position: relative;
+      img{
+        display: block;
+        width: 0.39rem;
+        border-radius: 50%;
+      }
+      span{
+        display: block;
+        height: 0.39rem;
+        font-size: 0.22rem;
+        line-height: 0.39rem;
+        margin-left: 5%;
+      }
+      .span2{
+        position: absolute;
+        color: #888;
+        right: 0;
+        i{
+          margin-right: 0.06rem;
+        }
+      }
+    }
+    
+  }
+  }
+  .right{
+    width: 49%;
+    margin-left: 2%;
+    .videoCard{
+    width: 100%;
+    margin-top: 0.2rem;
+    .videoImg{
+      width: 100%;
+      position: relative;
+      border-radius: 0.08rem;
+      overflow: hidden;
+      img{
+        display: block;
+        width: 100%;
+      }
+      span{
+      font-size: 0.3rem;
+      color: #fff;
+      background-color: rgb(0 0 0 / 50%);
+      position: absolute;
+      top: 2vw;
+      right: 2vw;
+      font-size: 3vw;
+      padding: 0 1vw;
+      border-radius: 1vw;
+    }
+    }
+    p{
+      font-size: 0.24rem;
+      margin-top: 0.1rem;
+    }
+    .videoUser{
+      display: flex;
+      margin-top: 0.1rem;
+      height: 0.39rem;
+      width: 100%;
+      position: relative;
+      img{
+        display: block;
+        width: 0.39rem;
+        border-radius: 50%;
+      }
+      span{
+        display: block;
+        height: 0.39rem;
+        font-size: 0.22rem;
+        line-height: 0.39rem;
+        margin-left: 5%;
+      }
+      .span2{
+        position: absolute;
+        color: #888;
+        right: 0;
+        i{
+          margin-right: 0.06rem;
+        }
+      }
+    }
+    
+  }
+  }
 }
 .hide{
   display: none;

@@ -9,6 +9,8 @@ import User from "../views/User.vue"
 import Users from "../views/Users.vue"
 import Cs from "../views/test/Cs.vue"
 import Userimg from "../views/test/Userimg"
+import Dynamic from "../views/test/Dynamic"
+import Video from "../views/Video"
 
 Vue.use(VueRouter)
 
@@ -49,6 +51,14 @@ const routes = [
   {
     path: '/userimg',
     component: Userimg
+  },
+  {
+    path: '/dynamic',
+    component: Dynamic
+  },
+  {
+    path: '/video',
+    component: Video
   },
   {
     path: '/about',

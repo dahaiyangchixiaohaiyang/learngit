@@ -41,7 +41,7 @@
     <van-popup
       v-model="show"
       :style="{ height: '20%' }"
-      :overlay-style="{ backgroundColor: 'rgba(0,0,0,0.1)' }"
+      :overlay-style="{ backgroundColor: 'rgba(255,255,255,0.92)' }"
     >
       <div class="yanzheng">
         <div class="yanzhengma">

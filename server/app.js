@@ -196,6 +196,46 @@ server.get('/fenye', (req, res) => {
   });
 
 });
+// 获取视频分类下包含文章数据的接口
+server.get('/video', (req, res) => {
+  // 获取客户端传递的cid参数
+  let cid = req.query.cid;
+
+  // 获取客户端传递的page参数
+  let page = req.query.page? req.query.page : 1;
+
+  // 存储每页显示的记录数
+  let pagesize = 20;
+
+  // 通过公式来计算从第几条记录开始返回
+  let offset = (page - 1) * pagesize;
+
+  // 用于存储获取到的总记录数
+  let rowcount;
+
+  // 获取指定分类下的文章总数
+  let sql = 'SELECT COUNT(lid) AS count FROM video WHERE class=?';
+
+  pool.query(sql, [cid], (error, results) => {
+    if (error) throw error;
+    // 将获取到总记录数赋给rowcount变量
+    rowcount = results[0].count;
+    /**************************************************/
+    // 根据总记录数和每页显示的记录数来计算总页数
+    let pagecount = Math.ceil(rowcount / pagesize);
+
+    // 查询SQL语句
+    sql = 'SELECT * FROM video WHERE class=? LIMIT ?,?';
+    // 执行SQL
+    pool.query(sql, [cid, offset, pagesize], (error, results) => {
+      if (error) throw error;
+      res.send({ message: 'ok', code: 200, results: results, pagecount: pagecount });
+    });
+
+    /**************************************************/
+  });
+
+});
 
 // 获取指定分类下包含文章数据的接口
 server.get('/articles', (req, res) => {

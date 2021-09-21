@@ -6,8 +6,9 @@
       <div @click="queding">确定</div>
     </div>
 
-    
+    <div class="up">
     <van-uploader v-model="fileList" :after-read="afterRead" :max-count="1"/>
+    </div>
     </div>
 </template>
 <script>
@@ -108,7 +109,7 @@ export default {
   
 
 }
-.van-icon{
+.up .van-icon{
   font-size: 2rem !important;
 }
 .van-uploader__preview-image{

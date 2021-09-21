@@ -7,6 +7,73 @@ create table bly2(
   imgs varchar(128)
 );
 insert into bly2 values(null,'img/userimg/50.png');
+
+create table video(
+  lid int primary key AUTO_INCREMENT,
+  img varchar(64),
+  title varchar(128),
+  userimg varchar(64),
+  username varchar(64),
+  userAi int,
+  class varchar(32)
+);
+insert into video values(null,'img/video/1.png','汉服发型|邻家妹妹的无发包编程,日常汉服发型教程','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/2.jpeg','还是那个汉服女孩','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/3.jpeg','追风赶月莫停留 平芜尽处是春山。','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/4.png','百年困顿就此借酒浇 折了樱桃 还用剑来挑','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/5.jpg','古风混剪，满眼星辰都是你','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/6.jpeg','“清声袅云思繁多，持愿惦念君颜和。”','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/7.jpg','往日情怀酿作酒换你余生长醉不复忧','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/8.jpg','“清风拂面等佳人，红烛月下念思卿”','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/9.png','谁家姑娘，惊艳了古往今来多少人','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/10.png','白衫静立山水中，抿唇轻笑温润神','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/11.png','醉里看红尘 玲珑有佳人','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/12.jpg','“清声袅云思繁多，持愿惦念君颜和。”','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/13.png','几更情深一寸伤多一分','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/14.png','向来风花雪月动人','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/15.png','相偎桃林醉闻晚风抚琴对饮仗剑红尘','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/16.jpg','觉后不知明月上，满身花影倩人扶','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/17.jpg','昨暮郊外览深春黛色抒怀','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/18.jpg','东风解语拾我意，送送萦肠入君家。','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/19.jpg','方羡飞花随风去，天涯尽处惹兰芳。','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/20.jpg','朝听细雨润门扉，年年一度送春回','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/1.png','汉服发型|邻家妹妹的无发包编程,日常汉服发型教程','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/2.jpeg','还是那个汉服女孩','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/3.jpeg','追风赶月莫停留 平芜尽处是春山。','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/4.png','百年困顿就此借酒浇 折了樱桃 还用剑来挑','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/5.jpg','古风混剪，满眼星辰都是你','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/6.jpeg','“清声袅云思繁多，持愿惦念君颜和。”','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/7.jpg','往日情怀酿作酒换你余生长醉不复忧','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/8.jpg','“清风拂面等佳人，红烛月下念思卿”','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/9.png','谁家姑娘，惊艳了古往今来多少人','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/10.png','白衫静立山水中，抿唇轻笑温润神','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/11.png','醉里看红尘 玲珑有佳人','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/12.jpg','“清声袅云思繁多，持愿惦念君颜和。”','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/13.png','几更情深一寸伤多一分','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/14.png','向来风花雪月动人','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/15.png','相偎桃林醉闻晚风抚琴对饮仗剑红尘','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/16.jpg','觉后不知明月上，满身花影倩人扶','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/17.jpg','昨暮郊外览深春黛色抒怀','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/18.jpg','东风解语拾我意，送送萦肠入君家。','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/19.jpg','方羡飞花随风去，天涯尽处惹兰芳。','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/20.jpg','朝听细雨润门扉，年年一度送春回','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/1.png','汉服发型|邻家妹妹的无发包编程,日常汉服发型教程','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/2.jpeg','还是那个汉服女孩','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/3.jpeg','追风赶月莫停留 平芜尽处是春山。','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/4.png','百年困顿就此借酒浇 折了樱桃 还用剑来挑','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/5.jpg','古风混剪，满眼星辰都是你','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/6.jpeg','“清声袅云思繁多，持愿惦念君颜和。”','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/7.jpg','往日情怀酿作酒换你余生长醉不复忧','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/8.jpg','“清风拂面等佳人，红烛月下念思卿”','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/9.png','谁家姑娘，惊艳了古往今来多少人','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/10.png','白衫静立山水中，抿唇轻笑温润神','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/11.png','醉里看红尘 玲珑有佳人','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/12.jpg','“清声袅云思繁多，持愿惦念君颜和。”','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/7.jpg','往日情怀酿作酒换你余生长醉不复忧','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/6.jpeg','“清声袅云思繁多，持愿惦念君颜和。”','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/4.png','百年困顿就此借酒浇 折了樱桃 还用剑来挑','img/userimg/18.png','汉服社',0,'视频');
+insert into video values(null,'img/video/2.jpeg','还是那个汉服女孩','img/userimg/18.png','汉服社',0,'视频');
+
 create table bly(
   id int primary key AUTO_INCREMENT,
   admins varchar(32),
