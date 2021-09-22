@@ -52,7 +52,7 @@
   <van-tabbar-item class="jinsom-icon jinsom-shejiao">
     <p>发现</p>
   </van-tabbar-item>
-  <van-tabbar-item class="jinsom-icon jinsom-fabu">
+  <van-tabbar-item class="jinsom-icon jinsom-fabu" is-link @click="showPopup3($store.state.islogin)">
   </van-tabbar-item>
   <van-tabbar-item class="jinsom-icon jinsom-xinxi">
     <p>消息</p>
@@ -66,16 +66,23 @@
 <transition name="van-slide-up">
   <div v-show="visible2.visible" class="di"><login :visible2="visible2"></login></div>
 </transition>
+
+<!-- 动态弹窗 -->
+<van-popup v-model="show3.isShow" position="bottom" :overlay-style="{ backgroundColor: 'rgba(255,255,255,0.92)' }" round :style="{ height: '40%' }" >
+<dynamic :show3="show3"></dynamic>
+  </van-popup>
   </div>
 
   
 </template>
 <script>
 import login from './login.vue';
+import dynamic from './test/Dynamic.vue';
 export default {
-  components: { login },
+  components: { login , dynamic },
   data(){
     return {
+      show3:{isShow:false},
       active:1,
       visible2:{
         visible:false
@@ -92,6 +99,20 @@ export default {
        this.noScroll()
        }
       },
+      // 判断动态页是否显示
+    showPopup3(islogin){
+      console.log(islogin)
+        if(islogin==true || islogin=='true'){
+          // this.$router.push('/dynamic')
+          this.show3.isShow=true
+          this.active=1
+        }else{
+       this.visible2.visible=true
+       console.log(this.visible2.visible)
+       this.noScroll()
+       this.active=1
+       }
+    },
   }
 }
 </script>

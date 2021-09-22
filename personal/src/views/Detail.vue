@@ -2,8 +2,14 @@
 <div>
   <!-- v-html="details" -->
   <div class="gongju" ></div>  
-  <div class="detail"  v-html="detail" @click="btnd">
-    
+  <div class="detail"  v-html="detail" @click="btnd">   
+  </div>
+  <!-- 详情页底部 -->
+  <div class="footDetail">
+    <a href="javascript:"><i class="jinsom-icon jinsom-fabu7">写评论</i></a>
+    <a href="javascript:"><i class="jinsom-icon jinsom-pinglun2"></i></a>
+    <a href="javascript:"><i class="jinsom-icon jinsom-shoucang1"></i></a>
+    <a href="javascript:"><i class="jinsom-icon jinsom-zhuanfa"></i></a>
   </div>
   </div>
 </template>
@@ -47,16 +53,56 @@ export default {
 </script>
 
 <style lang="scss">
+.footDetail{
+  touch-action: pan-y;
+  position: fixed;
+  bottom: 0;
+  height: 6vh;
+  display: flex;
+  width: 100%;
+  a{
+    text-decoration:none;
+    display: block;
+    width: 13%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#838383;
+    font-weight: 600;
+
+    i{
+     font-size: 0.35rem;
+    }
+    &:nth-child(1){
+      width: 61%;
+      i{
+        font-size: 0.3rem;
+        color: #999;
+        line-height: 5vh;
+        height: 5vh;
+        width: 90%;
+        background-color: #f6f6f6;
+        border-radius: 0.6rem;
+        text-align: left;
+        padding-left: 0.3rem;
+        font-weight: 500;
+      }
+      
+    }
+  }
+}
 
 .contents { 
   touch-action: pan-y;
   // overflow: auto;
   // position: fixed;
   background-color:#fff;
-  height: 90vh;
+  height: 87vh;
   overflow:auto;
   top: 0.7rem;
   margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
   padding: 0 0.3rem;
   h1{
     font-size: 0.33rem;

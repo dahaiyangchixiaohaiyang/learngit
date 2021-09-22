@@ -96,8 +96,8 @@
 
 
 <!-- 动态弹窗 -->
-<van-popup v-model="show3" position="bottom" :overlay-style="{ backgroundColor: 'rgba(255,255,255,0.92)' }" round :style="{ height: '40%' }" >
-<dynamic></dynamic>
+<van-popup v-model="show3.isShow" position="bottom" :overlay-style="{ backgroundColor: 'rgba(255,255,255,0.92)' }" round :style="{ height: '40%' }" >
+<dynamic :show3="show3"></dynamic>
   </van-popup>
   </div> 
 </template>
@@ -131,7 +131,7 @@ export default {
       lid: 50,
       detail:'',
       src:'img/mr100.jpg',
-      show3:false
+      show3:{isShow:false}
     }
   },
   computed:mapState(['userImg','userName']),
@@ -141,7 +141,8 @@ export default {
       console.log(islogin)
         if(islogin==true || islogin=='true'){
           // this.$router.push('/dynamic')
-          this.show3=true
+          this.show3.isShow=true
+          this.active=0
         }else{
        this.visible2.visible=true
        console.log(this.visible2.visible)
@@ -386,6 +387,7 @@ export default {
   margin-top: 2vw;
   width: 100vw;
   overflow: auto;
+  &::-webkit-scrollbar {display:none}
   span{
     position: absolute;
     left: 35%;

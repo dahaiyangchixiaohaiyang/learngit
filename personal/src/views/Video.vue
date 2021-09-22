@@ -301,6 +301,7 @@ export default {
     .videoCard{
     width: 100%;
     margin-top: 0.2rem;
+    margin-bottom: 0.3rem;
     .videoImg{
       width: 100%;
       position: relative;
@@ -362,6 +363,7 @@ export default {
     .videoCard{
     width: 100%;
     margin-top: 0.2rem;
+    margin-bottom: 0.3rem;
     .videoImg{
       width: 100%;
       position: relative;

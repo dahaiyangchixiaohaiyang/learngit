@@ -122,7 +122,7 @@
   <van-tabbar-item class="jinsom-icon jinsom-shejiao" to="/faxian">
     <p>发现</p>
   </van-tabbar-item>
-  <van-tabbar-item class="jinsom-icon jinsom-fabu">
+  <van-tabbar-item class="jinsom-icon jinsom-fabu" is-link @click="showPopup3">
   </van-tabbar-item>
   <van-tabbar-item class="jinsom-icon jinsom-xinxi">
     <p>消息</p>
@@ -131,15 +131,22 @@
     <p>我的</p>
   </van-tabbar-item>
 </van-tabbar>
+
+<!-- 动态弹窗 -->
+<van-popup v-model="show3.isShow" position="bottom" :overlay-style="{ backgroundColor: 'rgba(255,255,255,0.92)' }" round :style="{ height: '40%' }" >
+<dynamic :show3="show3"></dynamic>
+  </van-popup>
   </div>
 </template>
 <script>
 import login from './login.vue';
 import { mapState } from 'vuex';
+import dynamic from './test/Dynamic.vue';
 export default {
-  components: { login },
+  components: { login , dynamic },
   data(){
     return {
+      show3:{isShow:false},
       active:4,
       visible2:{
         visible:false
@@ -155,8 +162,14 @@ export default {
       },
       users(){
     this.$router.push("/users");
-  }
   },
+  // 判断动态页是否显示
+    showPopup3(){
+      this.show3.isShow=true
+      this.active=4
+    },
+  },
+   
   
 }
 </script>

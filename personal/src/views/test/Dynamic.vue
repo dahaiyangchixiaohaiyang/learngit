@@ -19,7 +19,7 @@
                   <h4>上传音频，用音乐倾听彼此</h4>
                   </div>
               </div>
-              <i class="jinsom-icon jinsom-xiangxia2"></i>
+              <i class="jinsom-icon jinsom-xiangxia2" @click="isDynamic"></i>
           </div>
 
     </div>
@@ -27,6 +27,7 @@
 
 <script>
 export default {
+  props:['show3'],
   data() {
     return {
       show: false,
@@ -37,6 +38,9 @@ export default {
     showPopup() {
       this.show = true;
     },
+    isDynamic(){
+        this.show3.isShow=false
+    }
   },
 };
 </script>
