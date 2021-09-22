@@ -79,10 +79,17 @@ create table bly(
   admins varchar(32),
   mima varchar(32),
   userimg varchar(64),
-  userid int
+  userid int,
+  jifen int,
+  renwu1 varchar(32),
+  renwu2 varchar(32),
+  renwu3 varchar(32),
+  renwu1ok varchar(32),
+  renwu2ok varchar(32),
+  renwu3ok varchar(32)
 );
-insert into bly values(null,'大海洋吃小海洋','wobushi213R','img/userimg/50.png','10940');
-insert into bly values(null,'别露洋','wobushi213R','img/userimg/27.png','10940');
+insert into bly values(null,'大海洋吃小海洋','wobushi213R','img/userimg/50.png','10940',25,null,null,null,null,null,null);
+insert into bly values(null,'别露洋','wobushi213R','img/userimg/27.png','10940',25,null,null,null,null,null,null);
 create table other2(
   lid int primary key AUTO_INCREMENT,
   title varchar(16),

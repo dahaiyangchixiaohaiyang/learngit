@@ -151,10 +151,11 @@ export default {
           let num = Math.floor(Math.random() * 20) + 1;
           let uimg = `img/userimg/${num}.png`;
           let uid = Math.floor(Math.random() * 10000) + 1;
+          let nums = 25;
           axios
             .post(
               "/register",
-              `username=${this.names}&password=${this.pwds}&userimg=${uimg}&userid=${uid}`
+              `username=${this.names}&password=${this.pwds}&userimg=${uimg}&userid=${uid}&jifen=${nums}`
             )
             .then((res) => {
               console.log(res.data);
@@ -232,14 +233,16 @@ export default {
               duration: "2000",
             });
             this.imgs = res.data.result.userimg;
-            this.$store.commit("loginOk", { name: this.name, img: this.imgs });
+            this.$store.commit("loginOk", { name: this.name, img: this.imgs ,jifen:res.data.result.jifen,userid:res.data.result.userid});
             // 不仅需要存在vuex中,还需要存入sessionStorage
             window.sessionStorage.setItem("islogin", true);
             window.sessionStorage.setItem("name", this.name);
             window.sessionStorage.setItem("imgs", this.imgs);
+            window.sessionStorage.setItem("jifen", res.data.result.jifen);
+            window.sessionStorage.setItem("userid", res.data.result.userids);
             console.log(this.imgs);
 
-            this.$router.push("/user");
+            this.$router.push(`/user`);
             this.canScroll();
           } else {
             this.$toast({

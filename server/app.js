@@ -133,6 +133,20 @@ server.get('/all', (req, res) => {
     res.send({ message: 'ok', code: 200, results: results });
   });
 });
+
+// 获取用户数据的接口
+server.get('/bly', (req, res) => {
+  // SQL语句以获取文章分类表的数据
+  let names = req.query.name
+  let sql = 'SELECT renwu1,renwu2,renwu3,renwu1ok,renwu2ok,renwu3ok FROM bly where admins=?';
+  // 执行SQL语句
+  pool.query(sql,[names],(error, results) => {
+    if (error) throw error;
+    res.send({ message: 'ok', code: 200, results: results });
+  });
+});
+
+
 // 获取导航图片话题的接口
 server.get('/other2', (req, res) => {
   // SQL语句以获取文章分类表的数据
@@ -303,6 +317,7 @@ server.post('/register', (req, res) => {
   let password = req.body.password;
   let userimgs = req.body.userimg;
   let userids = req.body.userid;
+  let jifens = req.body.jifen
   console.log(req.body)
   //以username为条件进行查找操作，以保证用户名的唯一性
   let sql = 'SELECT COUNT(id) AS count FROM bly WHERE admins=?';
@@ -311,8 +326,8 @@ server.post('/register', (req, res) => {
     let count = results[0].count;
     if (count == 0) {
       // 将用户的相关信息插入到数据表
-      sql = 'INSERT bly(admins,mima,userimg,userid) VALUES(?,MD5(?),?,?)';
-      pool.query(sql, [username, password,userimgs,userids], (error, results) => {
+      sql = 'INSERT bly(admins,mima,userimg,userid,jifen) VALUES(?,MD5(?),?,?,?)';
+      pool.query(sql, [username, password,userimgs,userids,jifens], (error, results) => {
         if (error) throw error;
         res.send({ message: 'ok', code: 200 });
       })
@@ -407,6 +422,176 @@ server.post('/edit', function (req, res, next) {
     }
   })
 })
+// 用户完成任务1接口（put /edit）
+// 地址： /users/edit
+server.post('/renwuone', function (req, res, next) {
+  //接收参数
+  var obj = req.body;
+  console.log(obj);
+  pool.query(`update bly set renwu1="${obj.renwuone}" where admins="${obj.name}"`, function (err, data) {
+    if (err) {
+      next(err);
+      return;
+    }
+    if (data.affectedRows > 0) {
+      res.send({
+        code: 1,
+        msg: '修改成功'
+      })
+    } else {
+      res.send({
+        code: 0,
+        msg: '修改失败'
+      })
+    }
+  })
+})
+// 用户完全领取积分任务1接口（put /edit）
+// 地址： /users/edit
+server.post('/renwuones', function (req, res, next) {
+  //接收参数
+  var obj = req.body;
+  console.log(obj);
+  pool.query(`update bly set renwu1ok="${obj.renwuone}" where admins="${obj.name}"`, function (err, data) {
+    if (err) {
+      next(err);
+      return;
+    }
+    if (data.affectedRows > 0) {
+      res.send({
+        code: 1,
+        msg: '修改成功'
+      })
+    } else {
+      res.send({
+        code: 0,
+        msg: '修改失败'
+      })
+    }
+  })
+})
+// 用户完全领取积分任务2接口（put /edit）
+// 地址： /users/edit
+server.post('/renwutwos', function (req, res, next) {
+  //接收参数
+  var obj = req.body;
+  console.log(obj);
+  pool.query(`update bly set renwu2ok="${obj.renwutwo}" where admins="${obj.name}"`, function (err, data) {
+    if (err) {
+      next(err);
+      return;
+    }
+    if (data.affectedRows > 0) {
+      res.send({
+        code: 1,
+        msg: '修改成功'
+      })
+    } else {
+      res.send({
+        code: 0,
+        msg: '修改失败'
+      })
+    }
+  })
+})
+// 用户完成任务2接口（put /edit）
+// 地址： /users/edit
+server.post('/renwutwo', function (req, res, next) {
+  //接收参数
+  var obj = req.body;
+  console.log(obj);
+  pool.query(`update bly set renwu2="${obj.renwutwo}" where admins="${obj.name}"`, function (err, data) {
+    if (err) {
+      next(err);
+      return;
+    }
+    if (data.affectedRows > 0) {
+      res.send({
+        code: 1,
+        msg: '修改成功'
+      })
+    } else {
+      res.send({
+        code: 0,
+        msg: '修改失败'
+      })
+    }
+  })
+})
+
+//用户领取积分1接口
+server.post('/isrenwuone', (req, res) => {
+  //console.log(md5('12345678'));
+  // 获取用户名和密码信息
+  let username = req.body.username;
+  let jifens = req.body.jifen
+  console.log(jifens)
+  //以username为条件进行查找操作，以保证用户名的唯一性
+  let sql = 'SELECT jifen FROM bly WHERE admins=?';
+  pool.query(sql, [username], (error, results) => {
+    if (error) throw error;
+    let count = results[0].jifen;
+    console.log(count)
+    let jifenSum =jifens*1+count*1
+    console.log(jifenSum)
+      // 将用户的相关信息插入到数据表
+      sql = `update bly set jifen="${jifenSum}" where admins="${username}"`;
+      pool.query(sql, (err, data) => {
+        if (err) {
+          next(err);
+          return;
+        }
+        if (data.affectedRows > 0) {
+          res.send({
+            code: 1,
+            msg: '修改成功',
+            data:data
+          })
+        } else {
+          res.send({
+            code: 0,
+            msg: '修改失败'
+          })
+        }
+      })
+    
+  });
+});
+//用户领取积分2接口
+server.post('/isrenwutwo', (req, res) => {
+  let username = req.body.username;
+  let jifens = req.body.jifen
+  console.log(jifens)
+  //以username为条件进行查找操作，以保证用户名的唯一性
+  let sql = 'SELECT jifen FROM bly WHERE admins=?';
+  pool.query(sql, [username], (error, results) => {
+    if (error) throw error;
+    let count = results[0].jifen;
+    console.log(count)
+    let jifenSum =jifens*1+count*1
+    console.log(jifenSum)
+      // 将用户的相关信息插入到数据表
+      sql = `update bly set jifen="${jifenSum}" where admins="${username}"`;
+      pool.query(sql, (err, data) => {
+        if (err) {
+          next(err);
+          return;
+        }
+        if (data.affectedRows > 0) {
+          res.send({
+            code: 1,
+            msg: '修改成功',
+          })
+        } else {
+          res.send({
+            code: 0,
+            msg: '修改失败'
+          })
+        }
+      })
+    
+  });
+});
 // 指定服务器对象监听的端口号
 server.listen(3000, () => {
   console.log('server is running...');

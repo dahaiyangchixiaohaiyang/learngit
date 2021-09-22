@@ -15,13 +15,13 @@
       </div>
       <div class="userRight">
         <p>{{userName}}</p>
-        <p class="userId">用户ID: 10940</p>
+        <p class="userId">用户ID: {{userId}}</p>
       </div>
         <i class="jinsom-icon jinsom-arrow-right"></i>
     </div>
     <div class="Tpb">
-        <van-progress pivot-text="" color="#dd565f" :percentage="25" />
-        <p>25/100</p>
+        <van-progress pivot-text="" color="#dd565f" :percentage="userJifen" />
+        <p>{{userJifen}}/100</p>
     </div>
     <div class="lists">
       <div><span>0</span><p>内容</p></div>
@@ -44,10 +44,10 @@
       <p>会员</p>
     </div>
     <div>
-      <div><i class="jinsom-icon jinsom-qiandao1"></i></div>
+      <div @click="qiandao"><i class="jinsom-icon jinsom-qiandao1"></i></div>
       <p>签到</p>
     </div>
-    <div>
+    <div @click="task(userName)">
       <div><i class="jinsom-icon jinsom-flag"></i></div>
       <p>任务</p>
     </div>
@@ -142,10 +142,12 @@
 import login from './login.vue';
 import { mapState } from 'vuex';
 import dynamic from './test/Dynamic.vue';
+import axios from "axios";
 export default {
   components: { login , dynamic },
   data(){
     return {
+      data:[],
       show3:{isShow:false},
       active:4,
       visible2:{
@@ -153,7 +155,7 @@ export default {
       }
     }
   },
-  computed:mapState(['userImg','userName']),
+  computed:{...mapState(['userImg','userName','userJifen','userId'])},
   methods:{
     btna(){
        this.visible2.visible=true
@@ -168,9 +170,22 @@ export default {
       this.show3.isShow=true
       this.active=4
     },
+    task(name){
+      this.$router.push(`/task?name=${name}`)
+    },
+    qiandao(){
+      this.$toast({
+              message: "签到成功",
+              position: "bottom",
+              duration: "2000",
+            });
+      let qiandao = true
+      console.log(this.userName)
+      axios.post('/renwuone',`name=${this.userName}&renwuone=${qiandao}`).then( res=> {
+        console.log(res.data)
+      })
+    }
   },
-   
-  
 }
 </script>
 

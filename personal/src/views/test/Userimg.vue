@@ -20,7 +20,7 @@ export default {
       fileList:[]
     }
   },
-    computed:{...mapState(['userImg','userName'])},
+    computed:{...mapState(['userImg','userName','userJifen','userId'])},
     methods:{
         afterRead(file) {
           console.log(this.userName)
@@ -36,11 +36,13 @@ export default {
       axios.post('http://localhost:3000/upload', formData).then(res=>{
           let imgss = `http://localhost:3000/${res.data.results}`
           this.fileList = [{url:imgss}]
-          this.$store.commit("loginOk", { name: this.userName, img: imgss });
+          this.$store.commit("loginOk", { name: this.userName, img: imgss,jifen:this.userJifen,userid:this.userId });
             // 不仅需要存在vuex中,还需要存入sessionStorage
             window.sessionStorage.setItem("islogin", true);
             window.sessionStorage.setItem("name", this.userName);
             window.sessionStorage.setItem("imgs", imgss);
+            window.sessionStorage.setItem("jifen", this.userJifen);
+            window.sessionStorage.setItem("userid", this.userId);
           console.log(res.data.results)
            axios.post('http://localhost:3000/edit',`name=${this.userName}&userimgs=${imgss}`)
 
@@ -52,7 +54,14 @@ export default {
       });
     },
     queding(){
+      let qiandao = true
+      console.log(this.userName)
+      axios.post('/renwutwo',`name=${this.userName}&renwutwo=${qiandao}`).then( res=> {
+        console.log(res.data)
         this.$router.push("/users");
+      })
+      
+      
     }
 
     }

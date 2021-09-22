@@ -11,6 +11,7 @@ import Cs from "../views/test/Cs.vue"
 import Userimg from "../views/test/Userimg"
 import Dynamic from "../views/test/Dynamic"
 import Video from "../views/Video"
+import Task from "../views/test/Task"
 
 Vue.use(VueRouter)
 
@@ -59,6 +60,10 @@ const routes = [
   {
     path: '/video',
     component: Video
+  },
+  {
+    path: '/task',
+    component: Task
   },
   {
     path: '/about',
