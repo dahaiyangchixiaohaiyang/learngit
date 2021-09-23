@@ -9,7 +9,7 @@
     <!-- 头部 -->
     <div class="taskHeard">
         <p>做任务开宝箱</p>
-        <p :v-model="sums">累计完成{{sums}}个任务</p>
+        <p :v-model="sums">累计完成{{showok+show1ok}}个任务</p>
     </div>
 
     <!-- 宝箱 -->
